@@ -5,9 +5,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient() 
 const router = express.Router()
 
-
 router.post("/register", async(req, res) => {
-    
     try {
         const {username, email, password } = req.body
         console.log("Received body", req.body)
