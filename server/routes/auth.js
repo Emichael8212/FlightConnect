@@ -5,7 +5,9 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient() 
 const router = express.Router()
 
+
 router.post("/register", async(req, res) => {
+    
     try {
         const {username, email, password } = req.body
         console.log("Received body", req.body)
@@ -43,6 +45,34 @@ router.post("/register", async(req, res) => {
     }   catch   (error) {
         console.error(error)
         res.status(500).json({error: "Something went wrong during signup"})
+    }
+})
+
+// Login authentication:
+router.post("/login", async(req, res) => {
+    // get the username and password from the login form
+    const {username, password} = req.body
+    try {   
+            // check if user provides the username and password
+            if (!username || !password) {
+                res.status(400).json({error: "Username and Password Required"})
+            }
+            // look up user by their username
+            const user = await prisma.user.findUnique({
+                where: {username}
+            });
+            if (!user) {
+                res.status(400).json({error: "Invalid Username or Password Required"})
+            }
+            // compared user provided password with one in my database
+            const isValidPassword = await bcrypt.compare(password, user.password);
+
+            if (!isValidPassword) {
+                res.status(400).json({error: "Incorrect Username or Password"})
+            }
+            res.status(200).json({message: "Login Successful"})
+    } catch (error) {
+        console.error(error)
     }
 })
 
