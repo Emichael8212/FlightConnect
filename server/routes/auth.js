@@ -7,15 +7,19 @@ const router = express.Router()
 
 router.post("/register", async(req, res) => {
     try {
-        const {username, email, password } = req.body
+        const {username, email, password, confirmPassword } = req.body
         console.log("Received body", req.body)
 
-        if (!username || !password) {
-            return res.status(400).json({error: "Username is required"})
+        if (!username || !password || !email || !confirmPassword) {
+            return res.status(400).json({error: "Fill all fields"})
         }
 
         if (password.length < 8) {
             return res.status(400).json({error: "Password must be at least 8 characters long."})
+        }
+
+        if (password !== confirmPassword) {
+            return res.status(400).json({error: "Passwords do not match"})
         }
 
         const existingUser = await prisma.user.findUnique({
@@ -39,7 +43,10 @@ router.post("/register", async(req, res) => {
         
 
         res.status(201).json({message: "Signup successful!", 
-            user: { id: newUser.id, username: newUser.username, email: newUser.email}});
+            user: { 
+                id: newUser.id, 
+                username: newUser.username, 
+                email: newUser.email}});
     }   catch   (error) {
         console.error(error)
         res.status(500).json({error: "Something went wrong during signup"})

@@ -7,7 +7,7 @@ function App() {
 
   return (
     <main>
-      <Register />
+      <Login />
     </main>
   )
 }
