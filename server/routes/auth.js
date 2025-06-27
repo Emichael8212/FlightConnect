@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { PrismaClient } from '@prisma/client'
 import { authenticateToken } from "./authMiddleware.js";
 
+
 const router = express.Router()
 const prisma = new PrismaClient() 
 
@@ -92,11 +93,16 @@ router.post("/login", async(req, res) => {
                 maxAge: 3*60*60*1000
             })
 
-            res.status(200).json({message: "Login Successful"})
-    } catch (error) {
+            return res.status(200).json({message: "Login Successful"})
+    }   catch (error) {
         console.error(error)
     }
 })
 
-export default router
 
+router.get("/profile", authenticateToken, async (req, res) => {
+    const {userId, username} = req.user
+    res.json({userId, username})                                                            
+})
+
+export default router
