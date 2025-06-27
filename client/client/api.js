@@ -13,10 +13,13 @@ export const registerUser = async (formData) => {
     }
 }
 
-
 export const loginUser = async (formData) => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, formData);
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, 
+            formData,
+            {withCredentials: true}
+        );
+
         return {wasSuccessful: true, data: response.data};
     }   catch (error) {
         const message = error.response && error.response.data && 

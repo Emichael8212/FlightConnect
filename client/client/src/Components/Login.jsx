@@ -1,6 +1,7 @@
 import { loginUser } from '../../api';
 import './Login.css'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 export default function Login() {
 
@@ -19,11 +20,13 @@ export default function Login() {
     };
 
     const handleLoginSubmit = async (event) => {
-        event.preventDefault;
+        event.preventDefault();
 
         try {
-                const res = await loginUser(formData);
-                setLoginMessage(res.data.registerMessage);
+                const res = await loginUser(setLoginData);
+                console.log("meee", res)
+                setLoginMessage(res.data.loginMessage);
+
         }   catch (error) {
                 setLoginMessage(res.error);
         }
@@ -32,7 +35,9 @@ export default function Login() {
 
     return (
         <div>
-            <form className='login-form'>
+            <form className='login-form' onSubmit={handleLoginSubmit}>
+                <h2>LoGIN</h2>
+
                 <label htmlFor="username">UserName:</label>
                 <input id="username" type="text" name="username" 
                     value={setLoginData.username} placeholder="immanuel" onChange={handleLoginChange}/>
@@ -43,10 +48,11 @@ export default function Login() {
                     value={setLoginData.password} onChange={handleLoginChange}/>
                 <br />
 
-                <button>Login</button>
+                <button className='loginBtn'>Login</button>
 
-                <p>Forgot password?</p>
-                <h1>Register here</h1>
+                <Link to="/auth/register"><p>Register Here</p></Link>
+                
+
             </form>
         </div>
     )
