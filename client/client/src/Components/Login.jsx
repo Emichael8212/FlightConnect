@@ -26,6 +26,7 @@ export default function Login() {
                 const res = await loginUser(setLoginData);
                 console.log("meee", res)
                 setLoginMessage(res.data.loginMessage);
+
         }   catch (error) {
                 setLoginMessage(res.error);
         }
@@ -36,6 +37,7 @@ export default function Login() {
         <div>
             <form className='login-form' onSubmit={handleLoginSubmit}>
                 <h2>LoGIN</h2>
+
                 <label htmlFor="username">UserName:</label>
                 <input id="username" type="text" name="username" 
                     value={setLoginData.username} placeholder="immanuel" onChange={handleLoginChange}/>
@@ -50,6 +52,7 @@ export default function Login() {
 
                 <Link to="/auth/register"><p>Register Here</p></Link>
                 
+
             </form>
         </div>
     )

@@ -4,10 +4,12 @@ import "./Register.css"
 import { Link } from "react-router-dom";
 
 
+
 export default function Register() {
 
     // set an initial state for the form to register 
     const [setRegisterData, isSetRegisterData] = useState(
+
         {
             username: "",
             password: "",
@@ -23,11 +25,13 @@ export default function Register() {
         isSetRegisterData(prev => ({...prev, [name]: value}));
     };
     // handle the submition of the form
+
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const res = await registerUser(setRegisterData)
+
             setRegisterMessage(res.data.registerMessage);
         }   catch (error) {
             setRegisterMessage(res.error);
@@ -73,6 +77,7 @@ export default function Register() {
                     
 
                     {registerMessage && <p>{registerMessage}</p>}
+
 
                 </form>
             </div>
