@@ -1,0 +1,33 @@
+
+
+
+.form-container {
+    background-color: rgb(208, 202, 194);
+    box-sizing: border-box;
+    box-shadow:rgb(208, 202, 194);
+    border-radius: 5px;
+    padding: 50px;
+    box-shadow: 5px 10px 15px 5px #888888;
+}
+
+input[type=submit], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 5px 10px #888888;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+
