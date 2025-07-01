@@ -8,6 +8,7 @@ import Recommendation from './Pages/Recommendation.jsx';
 
 export default function App() {
   return (
+    
     <Routes>
       <Route path='/auth/login' element={<Login />} />
       <Route path='/auth/register' element={<Register />} />

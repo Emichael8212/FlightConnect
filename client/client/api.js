@@ -19,6 +19,7 @@ export const loginUser = async (formData) => {
             formData,
             {withCredentials: true}
         );
+
         return {wasSuccessful: true, data: response.data};
     }   catch (error) {
         const message = error.response && error.response.data && 
