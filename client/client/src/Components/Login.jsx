@@ -24,7 +24,6 @@ export default function Login() {
 
         try {
                 const res = await loginUser(setLoginData);
-                console.log("meee", res)
                 setLoginMessage(res.data.loginMessage);
 
         }   catch (error) {

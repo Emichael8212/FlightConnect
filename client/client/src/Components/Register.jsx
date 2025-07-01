@@ -37,7 +37,6 @@ export default function Register() {
             setRegisterMessage(res.error);
         }
     };
-    console.log("userform", setRegisterData)
 
     return (
         <section>
