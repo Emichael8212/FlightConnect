@@ -6,13 +6,12 @@ import { authenticateToken } from "./authMiddleware.js";
 
 
 const router = express.Router()
-const prisma = new PrismaClient() 
+const prisma = new PrismaClient()
 
 
 router.post("/register", async(req, res) => {
     try {
         const {username, email, password, confirmPassword } = req.body
-        console.log("Received body", req.body)
 
         if (!username || !password || !email || !confirmPassword) {
             return res.status(400).json({error: "Fill all fields"})
@@ -37,19 +36,19 @@ router.post("/register", async(req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const newUser = await prisma.user.create({
-        
+
             data: {
                 username,
                 email,
                 password: hashedPassword,
             },
         });
-        
 
-        res.status(201).json({message: "Signup successful!", 
-            user: { 
-                id: newUser.id, 
-                username: newUser.username, 
+
+        res.status(201).json({message: "Signup successful!",
+            user: {
+                id: newUser.id,
+                username: newUser.username,
                 email: newUser.email}});
     }   catch   (error) {
         console.error(error)
@@ -61,7 +60,7 @@ router.post("/register", async(req, res) => {
 router.post("/login", async(req, res) => {
     // get the username and password from the login form
     const {username, password} = req.body
-    try {   
+    try {
             // check if user provides the username and password
             if (!username || !password) {
                 res.status(400).json({error: "Username and Password Required"})
@@ -102,7 +101,7 @@ router.post("/login", async(req, res) => {
 
 router.get("/profile", authenticateToken, async (req, res) => {
     const {userId, username} = req.user
-    res.json({userId, username})                                                            
+    res.json({userId, username})
 })
 
 export default router
