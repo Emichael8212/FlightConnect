@@ -1,33 +1,85 @@
+import { useState } from "react"
+import { registerUser } from "../../api";
 import "./Register.css"
+import { Link } from "react-router-dom";
+
+
 
 export default function Register() {
+
+    // set an initial state for the form to register 
+    const [setRegisterData, isSetRegisterData] = useState(
+
+        {
+            username: "",
+            password: "",
+            confirmPassword: "",
+            email: ""
+        },
+    );
+    // set a state to inform user if they successfully registered 
+    const [registerMessage, setRegisterMessage] = useState("");
+    // Initiate a function that changes the state of the form info to that which the user filled out
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        isSetRegisterData(prev => ({...prev, [name]: value}));
+    };
+    // handle the submition of the form
+
+    const handleRegisterSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const res = await registerUser(setRegisterData)
+
+            setRegisterMessage(res.data.registerMessage);
+        }   catch (error) {
+            setRegisterMessage(res.error);
+        }
+    };
+
     return (
         <section>
-            <form className="register-form">
-                <label htmlFor="first-name" >First Name:</label>
-                <input id="first-name" type="text" name="first-name" placeholder="Messi"/>
-                <br />
+            <div className="form-container">
+                <form className="register-form" onSubmit={handleRegisterSubmit}>
+                    <h2>ReGister</h2>
 
-                <label htmlFor="last-name" >Lastt Name:</label>
-                <input id="last-name" type="text" name="last-name" placeholder="Messi"/>
-                <br />
+                    <label htmlFor="username" >Username:</label>
+                    <input id="username" type="text" value={setRegisterData.username} name="username" 
+                        placeholder="Messi" onChange={handleChange}
+                        required/>
+                    <br />
 
-                <label htmlFor="email">Email:</label>
-                <input id="email" type="text" name="email" placeholder="immanuel@meta.com" />
-                <br />
+                    <label htmlFor="password">Password:</label>
+                    <input id="password" type="password" value={setRegisterData.password} 
+                        name="password" onChange={handleChange}
+                        required/>
+                    <br />
 
-                <label htmlFor="password">Password:</label>
-                <input id="password" type="password" name="password"/>
-                <br />
+                    <label htmlFor="confirmPassword">Comfirm Password:</label>
+                    <input id="confirmPassword" type="password" value={setRegisterData.confirmPassword}
+                        name="confirmPassword" onChange={handleChange}
+                        required/>
+                    <br />
 
-                <label htmlFor="comfirm-password">Comfirm Password:</label>
-                <input id="comfirm-password" type="password" name="comfirm-password"/>
-                <br />
+                    <label htmlFor="email">Email:</label>
+                    <input id="email" type="text" name="email" value={setRegisterData.email} 
+                        placeholder="immanuel@meta.com" onChange={handleChange}
+                        required/>
+                    <br />
+
+                    <button type="submit">Register</button>
+
+                    <Link to="/auth/login">
+                        <p className="loginRedirect">Back to Login</p>
+                    </Link>
+                    
+
+                    {registerMessage && <p>{registerMessage}</p>}
 
 
-                <button>Register</button>
-
-            </form>
+                </form>
+            </div>
         </section>
     )
 }
