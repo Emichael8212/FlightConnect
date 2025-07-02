@@ -25,6 +25,4 @@ app.use(cors({
 app.use("/auth", authRouter);
 app.use("/api/flights", flightRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
+app.listen(PORT);
