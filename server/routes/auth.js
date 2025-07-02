@@ -2,13 +2,13 @@ import express from "express"
 import bcrypt from "bcrypt"
 import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient() 
+const prisma = new PrismaClient()
 const router = express.Router()
 
 router.post("/register", async(req, res) => {
     try {
         const {username, email, password } = req.body
-        console.log("Received body", req.body)
+
 
         if (!username || !password) {
             return res.status(400).json({error: "Username is required"})
@@ -29,16 +29,16 @@ router.post("/register", async(req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const newUser = await prisma.user.create({
-        
+
             data: {
                 username,
                 email,
                 password: hashedPassword,
             },
         });
-        
 
-        res.status(201).json({message: "Signup successful!", 
+
+        res.status(201).json({message: "Signup successful!",
             user: { id: newUser.id, username: newUser.username, email: newUser.email}});
     }   catch   (error) {
         console.error(error)
@@ -47,4 +47,3 @@ router.post("/register", async(req, res) => {
 })
 
 export default router
-

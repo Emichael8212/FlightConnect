@@ -1,0 +1,108 @@
+.result-container {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 1rem 0;
+    padding: 1rem;
+    font-family: "Open Sans","Gill Sans MT","Gill Sans",Corbel,Arial,sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: #ebedf1;
+    padding: 15px;
+    box-shadow: 0 2px 4px #c8c8c8;
+}
+.holder {
+    display: flex;
+    justify-content: space-around;
+    gap: 28px;
+}
+
+
+.flight-number {
+    font-size: 1,25rem;
+    font-weight: bold;
+}
+
+.flight-name {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.flight-arrow {
+    margin: 0 0.5rem;
+}
+
+.flight-status {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    color: white;
+}
+
+.result-body {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.departure-section, .arrival-section {
+    display: flex;
+    flex-direction: column;
+    padding:  50px;
+    align-items: center;
+}
+
+.departure-title, .arrival-title {
+    font-weight: 600;
+    margin-bottom: 0.9rem;
+    background-color: #ebedf1;
+    padding: 0.5rem;
+    border-radius: 20px;
+    max-width: 20%;
+    align-content: center;
+}
+
+
+.departure-airport, .arrival-airport {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+table, tr, td {
+    border-collapse: collapse;
+    align-items: center;
+  }
+
+.departure-table, .arrival-table {
+    width: 100%;
+
+    margin-bottom: 0.5rem;
+}
+
+.departure-table th, .departure-table td, .arrival-table th, .arrival-table td {
+    text-align: left;
+    padding: 0.25rem 0.5rem;
+}
+
+.departure-table td, .arrival-table td {
+    width: 30%;
+    color: #555;
+}
+
+.terminal, .gate {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+}
