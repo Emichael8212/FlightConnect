@@ -1,11 +1,12 @@
 import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient() 
+const prisma = new PrismaClient();
 import express  from 'express';
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import dotenv from "dotenv"
 
 import authRouter from "./routes/auth.js"
+import flightRouter from "./routes/flights.js"
 
 dotenv.config();
 
@@ -22,8 +23,6 @@ app.use(cors({
 
 
 app.use("/auth", authRouter);
+app.use("/api/flights", flightRouter);
 
-
-app.listen(PORT, () => { 
-    console.log(`Server listening on port ${PORT}`);
-}); 
+app.listen(PORT);
