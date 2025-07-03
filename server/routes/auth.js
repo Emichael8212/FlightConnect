@@ -4,12 +4,11 @@ import jwt from "jsonwebtoken";
 import { PrismaClient } from '@prisma/client'
 import { authenticateToken } from "./authMiddleware.js";
 
-
 const router = express.Router()
 const prisma = new PrismaClient()
 
 
-router.post("/register", async(req, res) => {
+router.post("/auth/register", async(req, res) => {
     try {
         const {username, email, password, confirmPassword } = req.body
 
@@ -57,7 +56,7 @@ router.post("/register", async(req, res) => {
 })
 
 // Login authentication:
-router.post("/login", async(req, res) => {
+router.post("/auth/login", async(req, res) => {
     // get the username and password from the login form
     const {username, password} = req.body
     try {
@@ -99,7 +98,7 @@ router.post("/login", async(req, res) => {
 })
 
 
-router.get("/profile", authenticateToken, async (req, res) => {
+router.get("/auth/profile", authenticateToken, async (req, res) => {
     const {userId, username} = req.user
     res.json({userId, username})
 })

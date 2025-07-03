@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 
-
 export const authenticateToken = (req, res, next) => {
     const token = req.cookies.token;
 
@@ -9,7 +8,7 @@ export const authenticateToken = (req, res, next) => {
             res.status(401).json({error: "No token given"})
         )
     };
-    
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         req.user = decoded;
