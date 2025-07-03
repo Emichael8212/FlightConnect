@@ -24,10 +24,6 @@ router.post("/auth/register", async(req, res) => {
             return res.status(400).json({error: "Passwords do not match"})
         }
 
-        if (password !== confirmPassword) {
-            return res.status(400).json({error: "Passwords do not match"})
-        }
-
         const existingUser = await prisma.user.findUnique({
             where: {username}
         })
