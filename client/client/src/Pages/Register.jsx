@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { registerUser } from "../../api";
 import "./Register.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 
 export default function Register() {
@@ -17,6 +17,8 @@ export default function Register() {
     );
     // set a state to inform user if they successfully registered
     const [registerMessage, setRegisterMessage] = useState("");
+
+    const navigate = useNavigate();
     // Initiate a function that changes the state of the form info to that which the user filled out
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -26,12 +28,12 @@ export default function Register() {
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            const res = await registerUser(setRegisterData)
-            setRegisterMessage(res.data.registerMessage);
-        }   catch (error) {
-            setRegisterMessage(res.error);
-        }
+        const response = await registerUser(setRegisterData);
+        if (response.wasSuccessful) {
+            navigate("/auth/login");
+        } else {
+            setRegisterMessage(response.error);
+        };
     };
 
     return (
