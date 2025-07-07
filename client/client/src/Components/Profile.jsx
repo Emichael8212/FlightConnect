@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket, faCircleUser} from "@fortawesome/free-solid-svg-icons";
 import { useAuthenticationContext } from "../Context/AuthenticationContext";
 import "./Profile.css";
 
