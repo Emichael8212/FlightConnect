@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../Components/Header";
+import Header from "../Components/Header.jsx";
 import FlightResult from "../Components/FlightResult";
 
 
