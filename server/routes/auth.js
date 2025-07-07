@@ -3,17 +3,24 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { PrismaClient } from '@prisma/client'
 import { authenticateToken } from "./authMiddleware.js";
+import emailValidator from "email-validator";
 
-const router = express.Router()
-const prisma = new PrismaClient()
+const router = express.Router();
+const prisma = new PrismaClient();
 
 
-router.post("/auth/register", async(req, res) => {
+router.post("/register", async(req, res) => {
     try {
         const {username, email, password, confirmPassword } = req.body
 
         if (!username || !password || !email || !confirmPassword) {
             return res.status(400).json({error: "Fill all fields"})
+        }
+
+        // validate email address using email-validator package
+        const isValidEmail = emailValidator.validate(email);
+        if (!isValidEmail) {
+            return res.status(400).json({error: "Invalid Email"})
         }
 
         if (password.length < 8) {
@@ -56,7 +63,7 @@ router.post("/auth/register", async(req, res) => {
 })
 
 // Login authentication:
-router.post("/auth/login", async(req, res) => {
+router.post("/login", async(req, res) => {
     // get the username and password from the login form
     const {username, password} = req.body
     try {
@@ -98,7 +105,7 @@ router.post("/auth/login", async(req, res) => {
 })
 
 
-router.get("/auth/profile", authenticateToken, async (req, res) => {
+router.get("/profile", authenticateToken, async (req, res) => {
     const {userId, username} = req.user
     res.json({userId, username})
 })

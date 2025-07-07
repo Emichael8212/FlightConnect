@@ -6,26 +6,12 @@ import App from './App.jsx'
 import AuthenticationContextProvider from './Context/AuthenticationContext.jsx'
 
 
-
-
-
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <div>Not Found</div>
-  }
-]);
-
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthenticationContextProvider>
       <BrowserRouter>
-        <App />
+        <AuthenticationContextProvider>
+          <App />
+        </AuthenticationContextProvider>
       </BrowserRouter>
-    </AuthenticationContextProvider>
   </StrictMode>,
 )
