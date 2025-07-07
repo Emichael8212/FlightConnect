@@ -3,6 +3,12 @@ import axios from 'axios';
 import Header from '../components/Header';
 axios.defaults.withCredentials = true;
 
+const STATUS = {
+    IDLE: null,
+    SENDING: 'sending',
+    SUCCESS: 'success',
+    ERROR: 'error',
+};
 
 export default function Connect() {
 
@@ -10,30 +16,30 @@ export default function Connect() {
     const [to, setTo] = useState('');
     const [subject, setSubject] = useState('');
     const [body, setBody] = useState('');
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState(STATUS.IDLE);
 
     // initialize event handlers for email recipent
-    const handleRecipentChange = (e) => {
+    const handleRecipientChange = (e) => {
         setTo(e.target.value);
-        setStatus(null);
+        setStatus(STATUS.IDLE);
     };
 
     // initialize event handler for email for user input
     const handleSubjectChange = (e) => {
         setSubject(e.target.value);
-        setStatus(null);
+        setStatus(STATUS.IDLE);
     };
 
     // initialize event handler for email body
     const handleMessageChange = (e) => {
         setBody(e.target.value);
-        setStatus(null);
+        setStatus(STATUS.IDLE);
     };
 
     // initialize event handler for email submit
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
-        setStatus('sending email...');
+        setStatus(STATUS.SENDING);
         try {
             // send email request to my backend server
             await axios.post('/email/connect', {to, subject, text: body},
@@ -41,7 +47,7 @@ export default function Connect() {
             setStatus('sent successfully');
 
         } catch (error) {
-            setStatus('error sending email');
+            setStatus(STATUS.ERROR);
 
         };
     }
@@ -51,9 +57,9 @@ export default function Connect() {
             <Header/>
             <form onSubmit={handleEmailSubmit}>
                 <h2>Connect</h2>
-                <label htmlFor="to">Recipent:</label>
+                <label htmlFor="to">Recipient:</label>
                 <input id="to" type="email" name="to"
-                    value={to} placeholder="Recipent" onChange={handleRecipentChange}
+                    value={to} placeholder="Recipent" onChange={handleRecipientChange}
                     required
                     />
                 <br />
@@ -72,8 +78,8 @@ export default function Connect() {
                     />
                 <br />
 
-                <button disabled={status==="sending email..."} type="submit" className='connect btn'>
-                    {status === 'sending email...'? 'Sending...' : 'Send Message'}
+                <button disabled={status===STATUS.SENDING} type="submit" className='connect btn'>
+                    {status === STATUS.SENDING? 'Sending...' : 'Send Message'}
                 </button>
 
             </form>
