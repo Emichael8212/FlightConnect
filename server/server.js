@@ -7,6 +7,7 @@ import dotenv from "dotenv"
 
 import authRouter from "./routes/auth.js"
 import flightRouter from "./routes/flights.js"
+import emailRouter from "./routes/email.js"
 
 dotenv.config();
 
@@ -24,5 +25,6 @@ app.use(cors({
 
 app.use("/auth", authRouter);
 app.use("/api/flights", flightRouter);
+app.use("/email", emailRouter);
 
 app.listen(PORT);
