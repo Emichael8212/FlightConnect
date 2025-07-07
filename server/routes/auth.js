@@ -103,4 +103,13 @@ router.get("/auth/profile", authenticateToken, async (req, res) => {
     res.json({userId, username})
 })
 
+router.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+    });
+    return res.json({message: "Logout Successful"});
+});
+
 export default router
