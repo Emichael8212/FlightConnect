@@ -1,22 +1,21 @@
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import "./Header.css";
 
 export default function Header() {
   return (
     <header className='header'>
         <div className='header-logo'>
-            LOGO
+            <FontAwesomeIcon icon={faBars} />
         </div>
         <span className='web-title'>
             Flight Connect
         </span>
         <div className='profile-logo'>
-            Profile Avatar
+            <Profile />
         </div>
-        <nav className='header-nav'>
-            <a href='/' className='header-nav-link'>Home</a>
-            <a href='/Flights' className='header-nav-link'>About</a>
-        </nav>
+
     </header>
   )
 }
