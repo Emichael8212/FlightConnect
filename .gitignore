@@ -1,1 +1,11 @@
 client/client/.env
+
+__pycache__
+debug_page.html
+debug.html
+
+hotel_json_cleaned
+things_to_do_json
+
+test.js
+server/prisma/generated/
