@@ -1,0 +1,39 @@
+.flight-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 75px 30px;
+    background-color: #1a111f;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.
+    1);
+    color: aliceblue;
+    left: 0;
+    right: 0;
+}
+
+.track-searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    background-color: #1a111f;
+    border: 1px solid #1a111f;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.
+    1);
+    color: aliceblue;
+    flex-direction: column;
+}
+
+.result-header {
+    color: rgb(168, 60, 60);
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #322539;
+}
+
+.flight-status {
+    color : rgb(168, 60, 60);
+}

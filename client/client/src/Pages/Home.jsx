@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../Components/Header";
+import Header from "../Components/Header.jsx";
+import "../Pages/Home.css"
 import FlightResult from "../Components/FlightResult";
 
 
@@ -106,7 +107,7 @@ export default function Home() {
     const resultsToDisplay = searchResults.length > 0 ? searchResults : [flight]
 
     return (
-        <main>
+        <>
             <Header />
             <div className="flight-container">
                 <h2>Welcome {setUser?.username}</h2>
@@ -192,6 +193,6 @@ export default function Home() {
 
                 </section>
             </div>
-        </main>
+        </>
     )
 }
