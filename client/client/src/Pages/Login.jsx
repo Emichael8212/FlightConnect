@@ -1,5 +1,5 @@
-import './Login.css'
-import { useState } from 'react'
+import './Login.css';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticationContext } from '../Context/AuthenticationContext';
@@ -20,15 +20,15 @@ export default function Login() {
 
     const handleLoginChange = (event) => {
         const {name, value} = event.target;
-        isSetLoginData(prev => ({...prev, [name]: value}))
+        isSetLoginData(prev => ({...prev, [name]: value}));
     };
 
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
 
         try {
-                await login(setLoginData)
-                navigate('/')
+                await login(setLoginData);
+                navigate('/');
         } catch (error) {
             setLoginMessage(error.response.data.message);
         }
@@ -55,5 +55,5 @@ export default function Login() {
 
             </form>
         </div>
-    )
+    );
 }

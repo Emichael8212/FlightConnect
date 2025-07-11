@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
+import Header from '../Components/Header';
 axios.defaults.withCredentials = true;
 
 const STATUS = {
