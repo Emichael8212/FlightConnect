@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "import:hotels": "node importHotels.js",
+    "import:things_to_do": "node importThingsToDo.js",
     "start": "nodemon server.js",
     "dev": "node server.js"
   },
@@ -13,7 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.10.1",
+    "@prisma/client": "^6.11.1",
     "@sendgrid/mail": "^8.1.5",
     "axois": "^0.0.1-security",
     "bcrypt": "^6.0.0",
