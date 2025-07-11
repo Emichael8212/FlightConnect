@@ -15,6 +15,9 @@ HOTEL_OUTPUT_DIR = "hotel_json_cleaned"
 # Where to dump “things to do” JSON files
 ATTRACTIONS_OUTPUT_DIR = "things_to_do_json"
 
+# Where to dump “resturants” JSON files
+RESTAURANTS_OUTPUT_DIR = "restaurants_json"
+
 # initialize header for requests
 HEADERS = {
     "User-Agent": (
