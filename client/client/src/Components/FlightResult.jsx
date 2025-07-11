@@ -1,5 +1,6 @@
 import "./FlightResult.css";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlane } from '@fortawesome/free-solid-svg-icons';
 
 export default function FlightResult({flight }) {
 
@@ -16,7 +17,7 @@ export default function FlightResult({flight }) {
                 </div>
                 <div className='flight-route'>
                     <span>{flight.departure.iata}</span>
-                    <span className='flight-arrow'> 🛫 </span>
+                    <span className='flight-arrow'> <FontAwesomeIcon icon={faPlane} className="plane" /> </span>
                     <span>{flight.arrival.iata}</span>
                 </div>
                 <div className='flight-status'>
