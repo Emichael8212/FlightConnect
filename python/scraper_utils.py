@@ -154,11 +154,11 @@ def parse_location_from_slug(slug: str) -> tuple[str, str]:
 
     # parse to city and state
     if len(parts) >= 2:
-        two = " ".join(parts[-2:]).title()
-        if two in US_STATES:
+        first_state = " ".join(parts[-2:]).title()
+        if sec_state in US_STATES:
             city = " ".join(parts[:-2]).title()
-            return city, two
+            return city, sec_state
 
-    one = parts[-1].title()
+    first_state = parts[-1].title()
     city = " ".join(parts[:-1]).title()
-    return city, one
+    return city, first_state
