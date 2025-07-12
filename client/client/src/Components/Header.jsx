@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Profile from './Profile.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import "./Header.css";
