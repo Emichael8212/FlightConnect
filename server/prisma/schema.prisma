@@ -75,3 +75,22 @@ model ThingsToDo {
   @@index([state])
   @@index([rating])
 }
+
+model Restaurant {
+  id          Int     @id    @default(autoincrement())
+  name        String
+  city        String
+  state       String
+  rating      Float?
+  imageUrl    String? @map("image_url")
+  category    String?
+  reviewCount Int?    @map("review_count")
+  description String?
+
+  @@unique([name, city, state])
+
+  @@index([city])
+  @@index([state])
+  @@index([rating])
+  @@index([category])
+}
