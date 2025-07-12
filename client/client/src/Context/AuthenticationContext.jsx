@@ -29,14 +29,14 @@ export default function AuthenticationContextProvider({ children }) {
     const login = async (loginFormData) => {
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, loginFormData, { withCredentials: true });
         setUser(response.data);
-    }
+    };
 
 
     // after logout, I need to call this function to set the authentication status to false
     const logout = async () => {
         await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`, {}, { withCredentials: true });
         setUser(null);
-    }
+    };
 
     // after register, I need to call this function to set the authentication status to true
     return (
@@ -45,7 +45,7 @@ export default function AuthenticationContextProvider({ children }) {
         >
             {children}
         </AuthenticationContext.Provider>
-    )
+    );
 }
 
 // I need to create a hook to use the authentication context

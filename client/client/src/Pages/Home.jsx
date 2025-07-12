@@ -41,11 +41,11 @@ export default function Home() {
         },
         flight_date: "2025-06-30",
         flight_status: "active"
-    }
+    };
 
 
     const [setUser, isSetUser] = useState(null);
-    const [searchType, setSearchType] = useState("flight")
+    const [searchType, setSearchType] = useState("flight");
     const [flightForm, setFlightForm] = useState({
         airlineName: "",
         date: "",
@@ -53,7 +53,7 @@ export default function Home() {
         destination: "",
         flightNumber: "",
         liveSearch: false,
-    })
+    });
     const [searchResults, setSearchResults] = useState([flight]);
 
     useEffect(() => {
@@ -61,13 +61,13 @@ export default function Home() {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/profile`,
                     {withCredentials: true});
-                isSetUser(response.data)
+                isSetUser(response.data);
             }   catch (error) {
-                console.error("User not Authenticated")
+                console.error("User not Authenticated");
             }
         };
         getUser();
-    }, [])
+    }, []);
 
     const handleChange = (event) => {
         const {name, value, type, checked} = event.target;
@@ -97,13 +97,13 @@ export default function Home() {
 
         }   catch (error) {
             console.error(error);
-            alert("No flights found")
+            alert("No flights found");
         }
-    }
+    };
     const handleFlightOption = () => setSearchType("flight");
     const handleRouteOption = () => setSearchType("route");
 
-    const resultsToDisplay = searchResults.length > 0 ? searchResults : [flight]
+    const resultsToDisplay = searchResults.length > 0 ? searchResults : [flight];
 
     return (
         <main>
@@ -193,5 +193,5 @@ export default function Home() {
                 </section>
             </div>
         </main>
-    )
+    );
 }

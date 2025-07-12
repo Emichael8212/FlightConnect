@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState } from "react";
 import { registerUser } from "../../api";
-import "./Register.css"
+import "./Register.css";
 import { Link, useNavigate} from "react-router-dom";
 
 
@@ -78,5 +78,5 @@ export default function Register() {
                 </form>
             </div>
         </section>
-    )
+    );
 }
