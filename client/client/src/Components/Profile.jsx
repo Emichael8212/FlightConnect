@@ -27,7 +27,7 @@ export default function Profile() {
     };
     // handle outside click event to close the modal
     const handleOutsideClick = (event) => {
-        if (event.target.className === "profile-modal-overlay") {
+        if (event.target.classList.contains("profile-modal-overlay")) {
             closeModal();
         };
     };

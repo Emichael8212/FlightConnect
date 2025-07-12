@@ -1,0 +1,27 @@
+.login-page {
+    background-image: url(../assets/flightbackground.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.login-form {
+    background: #151010;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+    margin: auto;
+    padding: 40px 60px;
+    text-align: center;
+}
+
+h2, label {
+    color: #fff;
+}

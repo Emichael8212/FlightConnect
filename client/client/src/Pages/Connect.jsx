@@ -41,8 +41,9 @@ export default function Connect() {
         e.preventDefault();
         setStatus(STATUS.SENDING);
         try {
+            const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
             // send email request to my backend server
-            await axios.post('/email/connect', {to, subject, text: body},
+            await axios.post(`${VITE_BASE_URL}/email/connect`, {to, subject, text: body},
             {headers: {'Content-Type': 'application/json'}});
             setStatus('sent successfully');
 
