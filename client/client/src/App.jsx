@@ -1,10 +1,10 @@
-import {Routes, Route } from 'react-router-dom'
+import {Routes, Route } from 'react-router-dom';
 import Register from './Pages/Register.jsx';
 import Login from './Pages/Login.jsx'
 import Home from './Pages/Home.jsx'
 import Connect from './Pages/Connect.jsx'
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
-import './App.css'
+import './App.css';
 import Recommendation from './Pages/Recommendation.jsx';
 
 export default function App() {
@@ -41,5 +41,5 @@ export default function App() {
           }
       />
     </Routes>
-  )
+  );
 }

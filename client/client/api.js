@@ -10,4 +10,4 @@ export const registerUser = async (formData) => {
         error.response.data.error ? error.response.data.error : "Registration failed";
         return {wasSuccessful: false, error: message};
     }
-}
+};

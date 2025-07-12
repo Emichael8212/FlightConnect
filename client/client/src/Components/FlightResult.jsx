@@ -110,5 +110,5 @@ export default function FlightResult({flight }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
