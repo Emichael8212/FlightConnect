@@ -3,7 +3,6 @@ import axios from "axios";
 
 // first, I need to create a context for the authentication context
 const AuthenticationContext = createContext();
-export { AuthenticationContext };
 
 // Intializing a function provider for the authentication context
 export default function AuthenticationContextProvider({ children }) {

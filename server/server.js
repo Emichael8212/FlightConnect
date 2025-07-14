@@ -9,6 +9,7 @@ import authRouter from "./routes/auth.js"
 import flightRouter from "./routes/flights.js"
 import emailRouter from "./routes/email.js"
 import userPreferenceRouter from "./routes/userPreference.js"
+import recommendationRouter from "./routes/recommendation.js"
 
 dotenv.config();
 
@@ -28,5 +29,6 @@ app.use("/auth", authRouter);
 app.use("/api/flights", flightRouter);
 app.use("/email", emailRouter);
 app.use("/preference", userPreferenceRouter);
+app.use("/recommendation", recommendationRouter);
 
 app.listen(PORT);
