@@ -34,7 +34,7 @@ export default function Register() {
             await login({
                 username: setRegisterData.username,
                 password: setRegisterData.password
-            })
+            });
             navigate("/preference");
         } else {
             setRegisterMessage(response.error);

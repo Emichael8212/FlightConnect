@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { data, useNavigate } from "react-router-dom";
-import BASE_URL from "/api.js"
+import { useNavigate } from "react-router-dom";
+import BASE_URL from "/api.js";
 import axios from "axios";
 import "./UserPreference.css";
 
@@ -12,7 +12,6 @@ export default function PreferenceForm() {
     activityCategory: ""
   });
 
-  const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ export default function PreferenceForm() {
         }
       } catch (err) {
         console.error('Preference Load Error:', err);
-      } finally {setLoading(false);}
+      }
     };
     getPreference();
   }, []);
@@ -48,7 +47,7 @@ export default function PreferenceForm() {
       const preferenceLoad = {
         ...preferenceForm,
         budgetTier: Number(preferenceForm.budgetTier),
-      }
+      };
 
       await axios.post(`${BASE_URL}/preference`, preferenceLoad,
         {withCredentials: true}

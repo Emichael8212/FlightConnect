@@ -51,7 +51,7 @@ export default function Connect() {
             setStatus(STATUS.ERROR);
 
         };
-    }
+    };
 
     return (
         <>
@@ -85,5 +85,5 @@ export default function Connect() {
 
             </form>
         </>
-    )
+    );
 }

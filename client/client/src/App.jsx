@@ -1,6 +1,6 @@
 import {Routes, Route } from 'react-router-dom';
 import Register from './Pages/Register.jsx';
-import Login from './Pages/Login.jsx'
+import Login from './Pages/Login.jsx';
 import Home from './Pages/Home.jsx';
 import Connect from './Pages/Connect.jsx';
 import UserPreference from './Pages/UserPreference.jsx';
