@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+  --sky-gradient-start: #5a808f;
+  --sky-gradient-end: #ffffff;
+  --cloud-white: #ffffff;
+  --border-color: #081217;
+  --text-color: #1f3a4b;
+  --label-color: #2e5167;
+  --accent-color: #027bbd;
+  --accent-hover: #015f8d;
+}
+
+.preferenceForm {
+  max-width: 640px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(to bottom, var(--sky-gradient-start), var(--sky-gradient-end));
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(31, 58, 75, 0.1);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.preferenceForm::before {
+  content: '\2708'; /* airplane emoji */
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 6rem;
+  color: rgba(255,255,255,0.3);
+  transform: rotate(20deg);
+}
+
+.preferenceForm h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+
+.preferenceForm label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--label-color);
+  margin-bottom: 0.4rem;
+}
+
+.preferenceForm input,
+.preferenceForm select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--cloud-white);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.4rem;
+}
+
+.preferenceForm input::placeholder {
+  color: #7a9aaa;
+}
+
+.preferenceForm input:focus,
+.preferenceForm select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(2, 123, 189, 0.2);
+}
+
+.preferenceForm button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--cloud-white);
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.preferenceForm button::before {
+  content: '\2708';
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.preferenceForm button:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.preferenceForm button:disabled {
+  background-color: #a0b8c8;
+  cursor: not-allowed;
+}

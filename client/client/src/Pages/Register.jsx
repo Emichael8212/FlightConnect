@@ -2,6 +2,7 @@ import { useState } from "react";
 import { registerUser } from "../../api";
 import "./Register.css";
 import { Link, useNavigate} from "react-router-dom";
+import { useAuthenticationContext } from "../Context/AuthenticationContext";
 
 
 export default function Register() {
@@ -17,7 +18,7 @@ export default function Register() {
     );
     // set a state to inform user if they successfully registered
     const [registerMessage, setRegisterMessage] = useState("");
-
+    const {login} = useAuthenticationContext();
     const navigate = useNavigate();
     // Initiate a function that changes the state of the form info to that which the user filled out
     const handleChange = (event) => {
@@ -30,7 +31,11 @@ export default function Register() {
 
         const response = await registerUser(setRegisterData);
         if (response.wasSuccessful) {
-            navigate("/auth/login");
+            await login({
+                username: setRegisterData.username,
+                password: setRegisterData.password
+            })
+            navigate("/preference");
         } else {
             setRegisterMessage(response.error);
         };
