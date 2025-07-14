@@ -27,8 +27,8 @@ export default function Login() {
         event.preventDefault();
 
         try {
-                await login(setLoginData);
-                navigate('/');
+            await login(setLoginData);
+            navigate('/');
         } catch (error) {
             setLoginMessage(error.response.data.message);
         }
