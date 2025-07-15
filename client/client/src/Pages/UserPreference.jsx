@@ -13,8 +13,11 @@ export default function PreferenceForm() {
   });
 
   const [submitting, setSubmitting] = useState(false);
+  const [checkingCity, setCheckingCity] = useState(false);
+  const [cityError, setCityError] = useState("");
   const navigate = useNavigate();
 
+  // Load existing preference data
   useEffect(() => {
     const getPreference = async () => {
       try {
@@ -35,14 +38,59 @@ export default function PreferenceForm() {
   }, []);
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+
     setPreferenceForm(prev =>
-    ({...prev, [event.target.name]: event.target.value})
+    ({...prev, [name]: value})
     );
+    // if user changes city input, I'll clear the error message
+    if (name === "defaultCity") {
+      setCityError("");
+    }
+  };
+
+  // Validate city input wether it exists in my db
+  const validateCity = async () => {
+    const cityInputed = preferenceForm.defaultCity.trim();
+    if (!cityInputed) {
+      setCityError("Please enter a city.");
+      return false;
+    }
+    setCheckingCity(true);
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/preference/exists`,
+        {
+          params: { defaultCity: cityInputed },
+          withCredentials: true
+        }
+      );
+      if (!res.data.exists) {
+        setCityError(`Sorry, we don’t have data for “${cityInputed}.”`);
+        return false;
+      }
+      setCityError("");
+      return true;
+    } catch (err) {
+      console.error("City validation error:", err);
+      setCityError("Could not verify city. Try again.");
+      return false;
+    } finally {
+      setCheckingCity(false);
+    }
   };
 
   const handlePreferenceSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true);
+
+    // check if the user inputed city is valid
+    const cityValid = await validateCity();
+    if (!cityValid) {
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const preferenceLoad = {
         ...preferenceForm,
@@ -52,6 +100,7 @@ export default function PreferenceForm() {
       await axios.post(`${BASE_URL}/preference`, preferenceLoad,
         {withCredentials: true}
       );
+      // After a success in collecting user preference, redirect to the home page
       navigate('/');
     } catch(err) {
       console.error('Preference Submit Error:', err);
@@ -73,12 +122,15 @@ export default function PreferenceForm() {
             name="defaultCity"
             value={preferenceForm.defaultCity}
             onChange={handleChange}
+            onBlur={validateCity}
             placeholder="e.g San Francisco"
             required
           />
+          {checkingCity && <span className="loading">Checking...</span>}
+          {cityError && <span className="error">{cityError}</span>}
       </div>
 
-      <div className="budget">
+      <div className="form-group">
         <label htmlFor="budgetTier" className="budgetTier" >Budget Tier</label>
           <select
             id="budgetTier"
@@ -96,7 +148,7 @@ export default function PreferenceForm() {
           </select>
       </div>
 
-      <div className="cuisineDiv">
+      <div className="form-group">
         <label htmlFor="cuisine" className="cusisine" >Cuisine</label>
           <select
             id="cuisine"
