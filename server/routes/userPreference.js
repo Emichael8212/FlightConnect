@@ -16,7 +16,7 @@ router.get('/', authenticateToken, async (req, res) => {
     return res.json(userPref || {});
   } catch (error) {
     console.error('Pref Get error', error);
-    return res.status(500).json({ error: "Failed to Load preference" });
+    return res.status(500).json({ error: 'Failed to Load preference' });
   }
 });
 
@@ -45,8 +45,8 @@ router.post('/', authenticateToken, async (req, res) => {
     // return the updated preference
     res.json(userPref);
   } catch (error) {
-    console.error("pref POST error", error);
-    return res.status(500).json({ error: "Failed to update preference" });
+    console.error('pref POST error', error);
+    return res.status(500).json({ error: 'Failed to update preference' });
   }
 });
 
@@ -54,7 +54,7 @@ router.get('/exists', authenticateToken, async (req, res) => {
 
   const prefCity = (req.query.defaultCity || '').trim();
   if (!prefCity) {
-    return res.status(400).json({ error: "City required" });
+    return res.status(400).json({ error: 'City required' });
   }
   const city = prefCity.toLowerCase();
   // check if the city exists in the database
@@ -73,8 +73,8 @@ router.get('/exists', authenticateToken, async (req, res) => {
     // if the city exists, return true, otherwise false
     return res.json({ exists: Boolean(hotel || restaurant || activity) });
   } catch (error) {
-    console.error("error Getting City", error);
-    res.status(500).json({ error: "Failed to verify City" });
+    console.error('error Getting City', error);
+    res.status(500).json({ error: 'Failed to verify City' });
   }
 });
 

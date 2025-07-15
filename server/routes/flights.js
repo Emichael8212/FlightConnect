@@ -33,11 +33,11 @@ router.post('/search', async (req, res) => {
             data = data.filter(flight => flight?.departure?.iata?.toUpperCase() === origin.toUpperCase() &&
             flight?.arrival?.iata?.toUpperCase() === destination.toUpperCase());
         }   else if (searchType === 'flight') {
-            data = data.filter(flight => flight?.flight?.iata?.toUpperCase() === flightNumber.toUpperCase())
+            data = data.filter(flight => flight?.flight?.iata?.toUpperCase() === flightNumber.toUpperCase());
         }
         // filter by date
         if (date) {
-            data = data.filter(flight => flight.flight_date === date)}
+            data = data.filter(flight => flight.flight_date === date);}
 
         if (!data || data.length === 0) {
             return res.status(404).json({ message: 'No flights found' });

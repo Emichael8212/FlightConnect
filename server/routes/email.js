@@ -1,5 +1,5 @@
 import express from 'express';
-import 'dotenv/config'
+import 'dotenv/config';
 import sgMail from '@sendgrid/mail';
 import { authenticateToken } from './authMiddleware.js';
 

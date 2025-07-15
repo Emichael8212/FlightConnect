@@ -1,22 +1,22 @@
 import { PrismaClient } from '@prisma/client';
-import fs from "fs/promises";
-import { fileURLToPath } from "url";
-import path from "path";
+import fs from 'fs/promises';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 
 const prisma = new PrismaClient();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const INPUT_DIRECTORY = path.resolve(__dirname, "../python/things_to_do_json");
+const INPUT_DIRECTORY = path.resolve(__dirname, '../python/things_to_do_json');
 
 async function main() {
     const files = await fs.readdir(INPUT_DIRECTORY);
 
     for (const file of files) {
-        if (!file.endsWith(".json")) {
+        if (!file.endsWith('.json')) {
             continue;
         }
-        const data = JSON.parse(await fs.readFile(path.join(INPUT_DIRECTORY, file), "utf-8"));
+        const data = JSON.parse(await fs.readFile(path.join(INPUT_DIRECTORY, file), 'utf-8'));
 
         const thingsToDo = data.map(item => ({
             city: item.city,
