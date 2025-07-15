@@ -1,25 +1,29 @@
 ## Description
+This PR adds a **UserPreference** model and API to store each user’s content-based recommendation “lenses” (budget tier, favorite cuisine, activity category, default city).  
+- On successful registration, a new user is redirected to a userPreferences form.  
+- Their selections are saved in a one-to-one `userPreference` table in the database.  
+- After they submit the form, they’re sent to the Home page.  
 
-The Restaurant Scraper PR
-This PR introduces the foundational components for managing restaurant data within the system. The key changes include:
-Created the Restaurant model to represent restaurant entities in the application.
-Added a Prisma table for restaurants to enable structured storage in the database.
-Implemented a JavaScript script that reads restaurant data from JSON files and feeds it into the database.
-Developed a restaurant scraper to collect restaurant data from external sources.
-Added a server run command to automate feeding the scraped restaurant data into the database.
-These changes collectively establish the end-to-end pipeline for ingesting, storing, and managing restaurant data.
-
-## what will be done in later PRs and not included here
-With this scrapped data in my future PR I'll be developing a recommmendation system based on user preference
+These preferences will drive our upcoming itinerary recommendation engine in the next PR.
 
 ## Milestones
-This Pr works to complete my Technical Challenge 1
+- Create `UserPreference` Prisma model & migration  
+-  Build `/preference` GET, POST, and `/preference/exists` endpoints  
+-  Hook up the front-end form and validate “default city” against our DB  
+-  Next: consume these preferences to score & serve personalized recommendations
 
 ## Resources
-The web scrapping browser: https://www.tripadvisor.com/Restaurants-g34438-Miami_Florida.html
-<links to tutorials, code snippets, inspirations>
-<if you took or translated specific code from the internet, please call it out here!>
+- UX discussion on when to capture preferences:  
+  https://ux.stackexchange.com/questions/93508/should-we-ask-user-details-preference-before-or-after-sign-up-in-a-mobile-app  
 
 ## Test Plan
-![restaurant table](<img width="1920" height="1080" alt="Screenshot 2025-07-14 at 11 05 37 AM (2)" src="https://github.com/user-attachments/assets/0a22acfd-a576-4f8b-bb4d-796e1f7eaf7b" />
-)
+1. **Flow For New User**  
+   - Register new user → redirected to Preferences page → fill form with a valid city → redirect to Home → verify `userPreference` record in DB.  
+2. **Edge cases**  
+   - Enter blank city: return inline error “Please enter a city.”  
+   - Enter city not in the DB: return inline error “Sorry—we don’t have data for {that city}”  
+   - Try again after typo: I clear the when user starts tying in a new city.  
+
+Preference Form: [<insert images or gifs of feature>](https://www.loom.com/share/0a45e85258904b36b8e1363cd6247f51?sid=a38e9e9e-37a8-4e0a-b44e-6c25dcc8c9bb)
+user preference table: https://www.loom.com/share/8dd350529657491c8031d9ac9fd2b06a?sid=90f23b49-9847-4b5a-8203-71d911c494ee
+

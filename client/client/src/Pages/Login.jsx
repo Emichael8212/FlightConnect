@@ -27,8 +27,8 @@ export default function Login() {
         event.preventDefault();
 
         try {
-                await login(setLoginData);
-                navigate('/');
+            await login(setLoginData);
+            navigate('/');
         } catch (error) {
             setLoginMessage(error.response.data.message);
         }
@@ -50,6 +50,9 @@ export default function Login() {
                 <br />
 
                 <button className='loginBtn'>Login</button>
+                {loginMessage && (
+                    <p className='login-error'>{loginMessage}</p>
+                    )}
 
                 <Link to="/auth/register"><p>Register Here</p></Link>
 

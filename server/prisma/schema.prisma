@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/prisma-client"
 }
 
 datasource db {
@@ -15,11 +14,22 @@ datasource db {
 }
 
 model User {
-  id          Int     @id   @default(autoincrement())
-  username    String  @unique
-  email       String
-  password    String
-  messages     Message[]
+  id            Int     @id   @default(autoincrement())
+  username      String  @unique
+  email         String
+  preferences   UserPreference?
+  password      String
+  messages      Message[]
+}
+
+model UserPreference {
+  id               Int     @id   @default(autoincrement())
+  userId           Int    @unique
+  user             User    @relation(fields: [userId], references: [id])
+  budgetTier       Int
+  cuisine          String?
+  activityCategory String?
+  defaultCity      String?
 }
 
 model Flight {
