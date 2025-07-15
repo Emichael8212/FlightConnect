@@ -6,6 +6,7 @@ debug.html
 
 hotel_json_cleaned
 things_to_do_json
+restaurants_json
 
 test.js
 server/prisma/generated/
