@@ -1,411 +1,168 @@
-/* Modern Glass Morphism Connect Page Styling for FlightConnect */
-
-/* Page container with aviation background */
-body {
-    margin: 0;
-    padding: 0;
-}
-
-/* Main container for the connect page */
-.connect-page-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
-    background-attachment: fixed;
-    position: relative;
-    overflow: hidden;
-    padding: 40px 20px;
-}
-
-/* Animated background elements */
-.connect-page-container::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(135, 206, 250, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
-    animation: float 25s ease-in-out infinite;
-    z-index: 0;
-}
-
-@keyframes float {
-    0%, 100% { 
-        transform: translateY(0px) rotate(0deg);
-        opacity: 0.7;
-    }
-    33% { 
-        transform: translateY(-30px) rotate(1deg);
-        opacity: 1;
-    }
-    66% { 
-        transform: translateY(15px) rotate(-1deg);
-        opacity: 0.8;
-    }
-}
-
-/* Glass morphism form container */
 form {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 50px 60px;
-    box-shadow: 
-        0 12px 40px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     max-width: 600px;
-    width: 90%;
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease;
+    padding-top: 20px;
+    margin: 50px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
 }
 
-form:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Enhanced page title */
 form h2 {
     text-align: center;
-    color: #ffffff;
-    font-size: 2.5rem;
-    font-weight: 300;
-    margin-bottom: 40px;
-    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
-    letter-spacing: 2px;
-    position: relative;
-    text-transform: uppercase;
+    color: #333333;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
 }
 
-form h2::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    border-radius: 2px;
-}
-
-/* Label styling */
 form label {
     display: block;
-    color: rgba(255, 255, 255, 0.95);
+    color: #555555;
     font-weight: 500;
     font-size: 1rem;
-    margin-bottom: 10px;
-    margin-top: 25px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    margin-top: 20px;
 }
 
-/* Input field styling with glass effect */
 form input[type="email"],
 form input[type="text"] {
     width: 100%;
-    padding: 18px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #ffffff;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
+    padding: 12px 16px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
     box-sizing: border-box;
-    margin-bottom: 8px;
-}
-
-form input[type="email"]::placeholder,
-form input[type="text"]::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
+    background: #fafafa;
 }
 
 form input[type="email"]:focus,
 form input[type="text"]:focus {
     outline: none;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
-        0 0 20px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    border-color: #007bff;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
-/* Textarea styling with glass effect */
 form textarea {
     width: 100%;
-    min-height: 140px;
-    padding: 18px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #ffffff;
-    font-size: 1.1rem;
+    min-height: 120px;
+    padding: 12px 16px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 1rem;
     font-family: inherit;
     resize: vertical;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease;
     box-sizing: border-box;
-    margin-bottom: 8px;
-}
-
-form textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
+    background: #fafafa;
 }
 
 form textarea:focus {
     outline: none;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
-        0 0 20px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    border-color: #007bff;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
-/* Enhanced button styling */
 .connect.btn {
     width: 100%;
-    padding: 18px;
+    padding: 14px;
+    background: #007bff;
+    color: white;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #ffffff;
-    font-size: 1.2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 1px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
     text-transform: uppercase;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 30px;
-    position: relative;
-    overflow: hidden;
-}
-
-.connect.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s;
-}
-
-.connect.btn:hover:not(:disabled)::before {
-    left: 100%;
+    letter-spacing: 0.5px;
 }
 
 .connect.btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.25));
-    transform: translateY(-3px);
-    box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: #0056b3;
 }
 
 .connect.btn:active:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 
-        0 6px 15px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: #004085;
 }
 
-/* Disabled button state */
 .connect.btn:disabled {
-    background: rgba(255, 255, 255, 0.1);
+    background: #6c757d;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-    opacity: 0.7;
 }
 
-/* Loading spinner for disabled button */
-.connect.btn:disabled::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    border: 2px solid transparent;
-    border-top: 2px solid #ffffff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Remove default br spacing */
 form br {
     display: none;
 }
 
-/* Status messages */
-.form-success {
-    color: rgba(76, 175, 80, 1);
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background: rgba(76, 175, 80, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(76, 175, 80, 0.3);
+form input::placeholder,
+form textarea::placeholder {
+    color: #999999;
+    font-style: italic;
 }
 
-.form-error {
-    color: rgba(231, 76, 60, 1);
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background: rgba(231, 76, 60, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(231, 76, 60, 0.3);
-    animation: shake 0.5s ease-in-out;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
-    .connect-page-container {
-        padding: 30px 15px;
-    }
-    
     form {
-        padding: 40px 35px;
-        border-radius: 16px;
+        margin: 30px 20px;
+        padding: 30px 25px;
     }
-    
+
     form h2 {
-        font-size: 2rem;
-        margin-bottom: 30px;
+        font-size: 1.8rem;
     }
-    
+
     form input[type="email"],
     form input[type="text"],
     form textarea {
-        padding: 15px 20px;
-        font-size: 1rem;
+        padding: 10px 14px;
     }
-    
-    form textarea {
-        min-height: 120px;
-    }
-    
+
     .connect.btn {
-        padding: 16px;
-        font-size: 1.1rem;
+        padding: 12px;
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .connect-page-container {
-        padding: 20px 10px;
-    }
-    
     form {
-        padding: 30px 25px;
+        margin: 20px 15px;
+        padding: 25px 20px;
     }
-    
+
     form h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         margin-bottom: 25px;
-        letter-spacing: 1px;
     }
-    
-    form input[type="email"],
-    form input[type="text"],
-    form textarea {
-        padding: 14px 18px;
-    }
-    
+
     form textarea {
         min-height: 100px;
     }
-    
-    .connect.btn {
-        padding: 15px;
-        font-size: 1rem;
-    }
 }
 
-/* Enhanced accessibility */
 form input:focus,
 form textarea:focus,
 .connect.btn:focus {
-    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline: 2px solid #007bff;
     outline-offset: 2px;
 }
 
-/* Smooth transitions for all elements */
-* {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.form-success {
+    color: #28a745;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
 }
 
-/* Additional visual enhancements */
-form {
-    position: relative;
-}
-
-form::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, 
-        rgba(255, 255, 255, 0.1), 
-        rgba(255, 255, 255, 0.05), 
-        rgba(255, 255, 255, 0.1));
-    border-radius: 22px;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-form:hover::before {
-    opacity: 1;
+.form-error {
+    color: #dc3545;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
 }
