@@ -49,7 +49,18 @@ router.post("/register", async(req, res) => {
                 password: hashedPassword,
             },
         });
+        const token = jwt.sign({
+            userId: newUser.id, username: newUser.username},
+            process.env.JWT_SECRET_KEY,
+            {expiresIn: process.env.JWT_EXPIRES}
+        )
 
+        res.cookie("token", token, {
+            httpOnly: true,
+            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 3*60*60*1000
+        })
 
         res.status(201).json({message: "Signup successful!",
             user: {

@@ -1,11 +1,12 @@
 import {Routes, Route } from 'react-router-dom';
 import Register from './Pages/Register.jsx';
-import Login from './Pages/Login.jsx'
-import Home from './Pages/Home.jsx'
-import Connect from './Pages/Connect.jsx'
+import Login from './Pages/Login.jsx';
+import Home from './Pages/Home.jsx';
+import Connect from './Pages/Connect.jsx';
+import UserPreference from './Pages/UserPreference.jsx';
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
 import './App.css';
-import Recommendation from './Pages/Recommendation.jsx';
+import Recommendation from './Components/Recommendation.jsx';
 
 export default function App() {
   return (
@@ -30,6 +31,15 @@ export default function App() {
             <Connect/>
           </ProtectedRoute>
           }
+      />
+
+      <Route
+        path='/preference'
+        element={
+          <ProtectedRoute >
+            <UserPreference/>
+          </ProtectedRoute>
+        }
       />
 
       <Route

@@ -5,8 +5,8 @@
     justify-content: space-between;
     padding: 75px 30px;
     background-color: #1a111f;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.
-    1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
     color: aliceblue;
     left: 0;
     right: 0;

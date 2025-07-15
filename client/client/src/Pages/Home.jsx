@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../Components/Header.jsx";
-import "../Pages/Home.css"
+import "../Pages/Home.css";
 import FlightResult from "../Components/FlightResult";
 
 
@@ -63,7 +63,7 @@ export default function Home() {
                 const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/profile`,
                     {withCredentials: true});
                 isSetUser(response.data);
-            }   catch (error) {
+            }   catch {
                 console.error("User not Authenticated");
             }
         };
@@ -194,5 +194,5 @@ export default function Home() {
                 </section>
             </div>
         </>
-    )
+    );
 }

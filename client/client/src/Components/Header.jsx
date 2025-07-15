@@ -11,7 +11,7 @@ export default function Header() {
     const handleEmailClick = () => {
         // Handle email click logic here
         navigate('/auth/connect');
-    }
+    };
 
   return (
     <header className='header'>

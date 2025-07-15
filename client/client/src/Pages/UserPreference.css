@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+  --sky-gradient-start: #177dc6;
+  --sky-gradient-end: #ffffff;
+  --cloud-white: #ffffff;
+  --border-color: #081217;
+  --text-color: #1f3a4b;
+  --label-color: #2e5167;
+  --accent-color: #027bbd;
+  --accent-hover: #015f8d;
+}
+
+.preference-form {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(to bottom, var(--sky-gradient-start), var(--sky-gradient-end));
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(31, 58, 75, 0.1);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.preference-form::before {
+  content: '\2708'; /* airplane emoji */
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 6rem;
+  color: rgba(255,255,255,0.3);
+  transform: rotate(20deg);
+}
+
+.preference-form h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+
+.preference-form label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--label-color);
+  margin-bottom: 0.4rem;
+}
+
+.preference-form input,
+.preference-form select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--cloud-white);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.4rem;
+}
+
+.preference-form input::placeholder {
+  color: #7a9aaa;
+}
+
+.preference-form input:focus,
+.preference-form select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(2, 123, 189, 0.2);
+}
+
+.preference-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--cloud-white);
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.preference-form button::before {
+  content: '\2708';
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.preference-form button:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.preference-form button:disabled {
+  background-color: #a0b8c8;
+  cursor: not-allowed;
+}
+
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 12px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--accent-color);
+  border-radius: 50%;
+  border-top: solid transparent;
+  animation: spin 0.1s linear infinite;
+}
