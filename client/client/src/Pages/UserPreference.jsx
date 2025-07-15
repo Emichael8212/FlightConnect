@@ -13,8 +13,11 @@ export default function PreferenceForm() {
   });
 
   const [submitting, setSubmitting] = useState(false);
+  const [checkingCity, setCheckingCity] = useState(false);
+  const [cityError, setCityError] = useState("");
   const navigate = useNavigate();
 
+  // Load existing preference data
   useEffect(() => {
     const getPreference = async () => {
       try {
@@ -35,14 +38,59 @@ export default function PreferenceForm() {
   }, []);
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+
     setPreferenceForm(prev =>
-    ({...prev, [event.target.name]: event.target.value})
+    ({...prev, [name]: value})
     );
+    // if user changes city input, I'll clear the error message
+    if (name === "defaultCity") {
+      setCityError("");
+    }
+  };
+
+  // Validate city input wether it exists in my db
+  const validateCity = async () => {
+    const cityInputed = preferenceForm.defaultCity.trim();
+    if (!cityInputed) {
+      setCityError("Please enter a city.");
+      return false;
+    }
+    setCheckingCity(true);
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/preference/exists`,
+        {
+          params: { defaultCity: cityInputed },
+          withCredentials: true
+        }
+      );
+      if (!res.data.exists) {
+        setCityError(`Sorry, we don’t have data for “${cityInputed}.”`);
+        return false;
+      }
+      setCityError("");
+      return true;
+    } catch (err) {
+      console.error("City validation error:", err);
+      setCityError("Could not verify city. Try again.");
+      return false;
+    } finally {
+      setCheckingCity(false);
+    }
   };
 
   const handlePreferenceSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true);
+
+    // check if the user inputed city is valid
+    const cityValid = await validateCity();
+    if (!cityValid) {
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const preferenceLoad = {
         ...preferenceForm,
@@ -52,6 +100,7 @@ export default function PreferenceForm() {
       await axios.post(`${BASE_URL}/preference`, preferenceLoad,
         {withCredentials: true}
       );
+      // After a success in collecting user preference, redirect to the home page
       navigate('/');
     } catch(err) {
       console.error('Preference Submit Error:', err);
@@ -61,27 +110,36 @@ export default function PreferenceForm() {
   return (
     <form
       onSubmit={handlePreferenceSubmit}
-      className="preferenceForm"
+      className="preference-form" style={{position: "relative"}}
     >
+      {submitting && (
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+          <p>Submitting your preferences...</p>
+        </div>
+      )}
       <h2>Your Travel Preferences</h2>
 
-      <div className="preferenceForm input">
-        <label htmlFor="defaultCity" className="defaultCity">Default City</label>
+      <div className="preference-form-input">
+        <label htmlFor="default-city" className="default-city">Default City</label>
           <input
-            id="defaultCity"
+            id="default-city"
             type="text"
             name="defaultCity"
             value={preferenceForm.defaultCity}
             onChange={handleChange}
+            onBlur={validateCity}
             placeholder="e.g San Francisco"
             required
           />
+          {checkingCity && <span className="loading">Checking...</span>}
+          {cityError && <span className="error">{cityError}</span>}
       </div>
 
-      <div className="budget">
-        <label htmlFor="budgetTier" className="budgetTier" >Budget Tier</label>
+      <div className="form-group">
+        <label htmlFor="budget-tier" className="budget-tier" >Budget Tier</label>
           <select
-            id="budgetTier"
+            id="budget-tier"
             name="budgetTier"
             value={preferenceForm.budgetTier}
             onChange={handleChange}
@@ -96,8 +154,8 @@ export default function PreferenceForm() {
           </select>
       </div>
 
-      <div className="cuisineDiv">
-        <label htmlFor="cuisine" className="cusisine" >Cuisine</label>
+      <div className="form-group">
+        <label htmlFor="cuisine" className="cuisine" >Cuisine</label>
           <select
             id="cuisine"
             name="cuisine"
@@ -114,10 +172,10 @@ export default function PreferenceForm() {
           </select>
       </div>
 
-      <div className="activityCategory">
-        <label htmlFor="activityCategory" className="block mb-2">Activity Category</label>
+      <div className="activity-category">
+        <label htmlFor="activity-category" className="activity-label">Activity Category</label>
           <select
-            id = "activityCategory"
+            id = "activity-category"
             name="activityCategory"
             value={preferenceForm.activityCategory}
             onChange={handleChange}

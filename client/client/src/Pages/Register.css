@@ -5,9 +5,7 @@
     background-color: rgb(208, 202, 194);
     box-sizing: border-box;
     box-shadow:rgb(208, 202, 194);
-    border-radius: 5px;
     padding: 50px;
-    box-shadow: 5px 10px 15px 5px #888888;
 }
 
 input[type=submit], select, textarea {
