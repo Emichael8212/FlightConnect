@@ -110,14 +110,20 @@ export default function PreferenceForm() {
   return (
     <form
       onSubmit={handlePreferenceSubmit}
-      className="preferenceForm"
+      className="preference-form" style={{position: "relative"}}
     >
+      {submitting && (
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+          <p>Submitting your preferences...</p>
+        </div>
+      )}
       <h2>Your Travel Preferences</h2>
 
-      <div className="preferenceForm input">
-        <label htmlFor="defaultCity" className="defaultCity">Default City</label>
+      <div className="preference-form-input">
+        <label htmlFor="default-city" className="default-city">Default City</label>
           <input
-            id="defaultCity"
+            id="default-city"
             type="text"
             name="defaultCity"
             value={preferenceForm.defaultCity}
@@ -131,9 +137,9 @@ export default function PreferenceForm() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="budgetTier" className="budgetTier" >Budget Tier</label>
+        <label htmlFor="budget-tier" className="budget-tier" >Budget Tier</label>
           <select
-            id="budgetTier"
+            id="budget-tier"
             name="budgetTier"
             value={preferenceForm.budgetTier}
             onChange={handleChange}
@@ -149,7 +155,7 @@ export default function PreferenceForm() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="cuisine" className="cusisine" >Cuisine</label>
+        <label htmlFor="cuisine" className="cuisine" >Cuisine</label>
           <select
             id="cuisine"
             name="cuisine"
@@ -166,10 +172,10 @@ export default function PreferenceForm() {
           </select>
       </div>
 
-      <div className="activityCategory">
-        <label htmlFor="activityCategory" className="block mb-2">Activity Category</label>
+      <div className="activity-category">
+        <label htmlFor="activity-category" className="activity-label">Activity Category</label>
           <select
-            id = "activityCategory"
+            id = "activity-category"
             name="activityCategory"
             value={preferenceForm.activityCategory}
             onChange={handleChange}
