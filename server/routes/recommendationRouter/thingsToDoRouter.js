@@ -21,9 +21,6 @@ router.post('/', authenticateToken, async (req, res) => {
         if (!userPreferences) {
             return res.status(404).json({message: 'User preferences not found'});
         }
-        if (weights) {
-            userPreferences = {...userPreferences, ...weights};
-        }
         // destructure user preferences for city and activity category
         const {defaultCity, activityCategory } = userPreferences;
         const userCity = normalizeCity(defaultCity);
