@@ -1,10 +1,9 @@
 import express from 'express';
 import { authenticateToken } from '../authMiddleware.js';
 import { PrismaClient } from '@prisma/client';
-import { calculateOverallScore } from '../../utils/recommendationHelpers.js';
+import { calculateOverallScore, budgetTierToPriceRange } from '../../utils/recommendationHelpers.js';
 import { getFallbackItems } from '../../utils/fallback.js';
 import { normalizeCity } from '../../utils/normalize.js';
-import { budgetTierToPriceRange } from '../../utils/recommendationHelpers.js';
 
 const prisma = new PrismaClient();
 const router = express.Router();
@@ -12,7 +11,6 @@ const router = express.Router();
 // POST top 10 hotels recommendation for a user based on their preferences
 router.post('/', authenticateToken, async (req, res) => {
     const userId = req.user.userId;
-    const {weights} = req.body;
 
     try {
         // Get user preferences from database
@@ -38,7 +36,7 @@ router.post('/', authenticateToken, async (req, res) => {
         if (Number.isFinite(budgetTierToPriceRange[budgetTier].max)) {
             priceRangeFilter.lte = budgetTierToPriceRange[budgetTier].max;
         }
-
+        // initialize find options for query to get top 10 hotels by rating in descending order
         const findOptions = {
             orderBy: { rating: 'desc' }, take: 100
         };
