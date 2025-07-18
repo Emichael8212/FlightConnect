@@ -41,19 +41,19 @@ router.post('/', authenticateToken, async (req, res) => {
                 city: cityFilter,
                 ...(activityCategory && {category: {contains: activityCategory, mode: 'insensitive'}})
             },  ...findOptions
-        })
+        });
 
         // recommend top 10 things to do in the given city and activity category based on user preferences
         const maxResultPerCategory = 10;
         const scoredThingsToDo = thingsToDo.map(item => ({
             ...item,
-            categoryType: "thingsToDo",
-            score: calculateOverallScore(item, userPreferences, "thingsToDo")
+            categoryType: 'thingsToDo',
+            score: calculateOverallScore(item, userPreferences, 'thingsToDo')
         }));
         let sortedThingsToDo = scoredThingsToDo.sort((a, b) => b.score - a.score).slice(0, maxResultPerCategory);
         // if less than 10 results, add fallback items
         if (sortedThingsToDo.length < maxResultPerCategory) {
-            const fallbackItems = await getFallbackItems(userCity, "thingsToDo", maxResultPerCategory - sortedThingsToDo.length);
+            const fallbackItems = await getFallbackItems(userCity, 'thingsToDo', maxResultPerCategory - sortedThingsToDo.length);
             sortedThingsToDo = [...sortedThingsToDo, ...fallbackItems];
         }
         return res.status(200).json( {thingsToDo: sortedThingsToDo});
