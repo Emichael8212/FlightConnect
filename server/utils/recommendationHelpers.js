@@ -46,7 +46,6 @@ export function calculateCategorySubScore(item, userPreferences, categoryType) {
     subScore += thingsToDoRatingWeight * normalize(item.rating || 0, 0, 5);
     subScore += thingsToDoReviewWeight * normalize(item.reviewCount || 0, 0, 1000);
   }
-
   return subScore;
 }
 
@@ -63,11 +62,9 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
   // for hotels, first look at budget match,
   if (categoryType === 'hotel') {
     applicableTotal += budgetWeight;
-
     const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
     normalizedCityWeight *= normalizationFactor;
     const normalizedBudgetWeight = budgetWeight * normalizationFactor;
-
     // City match
     score += normalizedCityWeight * 1;
 
@@ -82,7 +79,6 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
     const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
     normalizedCityWeight *= normalizationFactor;
     const normalizedCuisineWeight = cuisineWeight * normalizationFactor;
-
     // City match
     score += normalizedCityWeight * 1;
 
@@ -96,7 +92,6 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
     const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
     normalizedCityWeight *= normalizationFactor;
     const normalizedActivityWeight = activityWeight * normalizationFactor;
-
     // City match
     score += normalizedCityWeight * 1;
 
@@ -105,9 +100,7 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
       score += normalizedActivityWeight * 1;
     }
   }
-
   // Add sub-scores for finer ranking
   score += calculateCategorySubScore(item, userPreferences, categoryType);
-
   return score;
 }

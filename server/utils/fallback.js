@@ -24,7 +24,6 @@ export async function getFallbackItems(city, excludeCategory, neededCount) {
 
     // sort the fallback items by rating first, then by review count
     allItems.sort((a, b) => {
-
         // then sort by rating
         if ((b.rating || 0) !== (a.rating || 0)) {
             return (b.rating || 0) - (a.rating || 0);
