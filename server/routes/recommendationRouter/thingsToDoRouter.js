@@ -11,7 +11,6 @@ const router = express.Router();
 // POST things-to-do recommendation route handler for a given city and activity category
 router.post('/', authenticateToken, async (req, res) => {
     const userId = req.user.userId;
-    const {weights} = req.body;
 
     try {
         // Get user preferences
