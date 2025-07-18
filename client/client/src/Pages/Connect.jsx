@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios';
 import Header from '../Components/Header';
+import './Connect.css';
 axios.defaults.withCredentials = true;
 
 const STATUS = {
@@ -45,8 +46,11 @@ export default function Connect() {
             // send email request to my backend server
             await axios.post(`${VITE_BASE_URL}/email/connect`, {to, subject, text: body},
             {headers: {'Content-Type': 'application/json'}});
-            setStatus('sent successfully');
-
+            setStatus(STATUS.SUCCESS);
+            setTo('');
+            setSubject('');
+            setBody('');
+            alert('Email sent successfully!');
         } catch (error) {
             setStatus(STATUS.ERROR);
 
