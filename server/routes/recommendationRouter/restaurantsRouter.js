@@ -11,7 +11,6 @@ const router = express.Router();
 // POST 10 restaurants recommendations for a given city based on user preferences
 router.post('/', authenticateToken, async (req, res) => {
     const userId = req.user.userId;
-    const {weights} = req.body;
 // fetch user preferences from database
     try {
         let userPreferences = await prisma.userPreference.findUnique({
@@ -43,19 +42,19 @@ router.post('/', authenticateToken, async (req, res) => {
         // calculate the overall score for each restaurant based on user preferences
         const scoredRestaurants = restaurants.map(item => ({
             ...item,
-            categoryType: "restaurant",
-            score: calculateOverallScore(item, userPreferences, "restaurant")
+            categoryType: 'restaurant',
+            score: calculateOverallScore(item, userPreferences, 'restaurant')
         }));
         let sortedRestaurants = scoredRestaurants.sort((a, b) => b.score - a.score).slice(0, maxResultPerCategory);
         // if there are less than 10 results, fetch fallback items
         if (sortedRestaurants.length < maxResultPerCategory) {
-            const fallbackItems = await getFallbackItems(userCity, "restaurant", maxResultPerCategory - sortedRestaurants.length);
+            const fallbackItems = await getFallbackItems(userCity, 'restaurant', maxResultPerCategory - sortedRestaurants.length);
             sortedRestaurants = [...sortedRestaurants, ...fallbackItems];
         }
 
         return res.status(200).json({restaurants: sortedRestaurants});
     } catch (error) {
-        console.error("Restaurant error", error);
+        console.error('Restaurant error', error);
         return res.status(500).json({message: 'Internal server error'});
     }
 });
