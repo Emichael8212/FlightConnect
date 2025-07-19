@@ -27,7 +27,7 @@ router.post('/', authenticateToken, async (req, res) => {
             return res.status(400).json({message: 'Invalid city'});
         }
         // check if budget tier maps to a price range
-        if (!budgetTierToPriceRange) {
+        if (!budgetTierToPriceRange[budgetTier]) {
             return res.status(400).json({message: 'Invalid budget tier'});
         }
         // create filters for city and price range
@@ -36,7 +36,7 @@ router.post('/', authenticateToken, async (req, res) => {
         if (Number.isFinite(budgetTierToPriceRange[budgetTier].max)) {
             priceRangeFilter.lte = budgetTierToPriceRange[budgetTier].max;
         }
-        // initialize find options for query to get top 10 hotels by rating in descending order
+        // initialize find options for query to get top 100 hotels by rating in descending order
         const findOptions = {
             orderBy: { rating: 'desc' }, take: 100
         };
@@ -57,7 +57,7 @@ router.post('/', authenticateToken, async (req, res) => {
 
         // If there are less than 10 hotels, fill the rest with fallback items
         if (sortedHotels.length < maxResultPerCategory) {
-            const fallbackItems = await getFallbackItems('hotel', maxResultPerCategory - sortedHotels.length);
+            const fallbackItems = await getFallbackItems(userCity,'hotel', maxResultPerCategory - sortedHotels.length);
             sortedHotels = [...sortedHotels, ...fallbackItems];
         }
 
