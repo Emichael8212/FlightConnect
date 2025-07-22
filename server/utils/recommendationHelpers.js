@@ -8,6 +8,15 @@ export const budgetTierToPriceRange = {
     4: { min: 200, max: Infinity },
 };
 
+function normalizeWeights(cityWeight, secondaryWeight) {
+  const applicableTotal = cityWeight + secondaryWeight;
+  const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
+  return {
+    normalizedCityWeight: cityWeight * normalizationFactor,
+    normalizedSecondaryWeight: secondaryWeight * normalizationFactor,
+  };
+}
+
 // Calculate sub-score based on category-specific weights
 export function calculateCategorySubScore(item, userPreferences, categoryType) {
     // initiate a variable to store the score for the item's rating and review count
@@ -55,16 +64,8 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
   // destructure weights from user preferences for hotels and provide default values
   const { cityWeight = 0.4, budgetWeight = 0.3, cuisineWeight = 0.15, activityWeight = 0.15 } = userPreferences;
 
-  // Calculate normalized weights based on applicable weights
-  let applicableTotal = cityWeight; // City always applies
-  let normalizedCityWeight = cityWeight;
-
-  // for hotels, first look at budget match,
   if (categoryType === 'hotel') {
-    applicableTotal += budgetWeight;
-    const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
-    normalizedCityWeight *= normalizationFactor;
-    const normalizedBudgetWeight = budgetWeight * normalizationFactor;
+    const { normalizedCityWeight, normalizedSecondaryWeight: normalizedBudgetWeight } = normalizeWeights(cityWeight, budgetWeight);
     // City match
     score += normalizedCityWeight * 1;
 
@@ -75,10 +76,7 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
     }
 
   } else if (categoryType === 'restaurant') {
-    applicableTotal += cuisineWeight;
-    const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
-    normalizedCityWeight *= normalizationFactor;
-    const normalizedCuisineWeight = cuisineWeight * normalizationFactor;
+    const { normalizedCityWeight, normalizedSecondaryWeight: normalizedCuisineWeight } = normalizeWeights(cityWeight, cuisineWeight);
     // City match
     score += normalizedCityWeight * 1;
 
@@ -88,11 +86,7 @@ export function calculateOverallScore(item, userPreferences, categoryType) {
     }
 
   } else if (categoryType === 'thingsToDo') {
-    applicableTotal += activityWeight;
-    const normalizationFactor = applicableTotal > 0 ? 1 / applicableTotal : 1;
-    normalizedCityWeight *= normalizationFactor;
-    const normalizedActivityWeight = activityWeight * normalizationFactor;
-    // City match
+    const { normalizedCityWeight, normalizedSecondaryWeight: normalizedActivityWeight } = normalizeWeights(cityWeight, activityWeight);
     score += normalizedCityWeight * 1;
 
     // Add activity match score if item category matches user's activity preference
