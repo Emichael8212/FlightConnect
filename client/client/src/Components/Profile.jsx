@@ -1,85 +1,76 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faRightFromBracket, faCircleUser} from "@fortawesome/free-solid-svg-icons";
-import { useAuthenticationContext } from "../Context/AuthenticationContext";
-import "./Profile.css";
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faRightFromBracket, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { useAuthenticationContext } from '../Context/AuthenticationContext';
+import './Profile.css';
 
 export default function Profile() {
+  const { user, logout } = useAuthenticationContext();
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
-    // get user info from context
-    const { user, logout } = useAuthenticationContext();
-    const [showProfile, setShowProfile] = useState(false); // initate a state to control my profile modal
-    const navigate = useNavigate(); // use navigate to redirect user to different pages
+  // Toggle menu open/closed
+  const handleToggle = () => setIsOpen(open => !open);
 
-    // handle profile click event
-    const handleProfileClick = (event) => {
-        // prevent the default behavior of the button
-        event.stopPropagation();
-        // toggle the state of showProfile
-        setShowProfile((prevShowProfile) => !prevShowProfile);
-    };
+  // Close when focus leaves the entire container
+  const handleBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setIsOpen(false);
+    }
+  };
 
-    const closeModal = () => {
-        setShowProfile(false);
-    };
-    // handle outside click event to close the modal
-    const handleOutsideClick = (event) => {
-        if (event.target.classList.contains("profile-modal-overlay")) {
-            closeModal();
-        };
-    };
-    // initiate a function to clear the user info and redirect user to login page
-    const handleProfileLogout = async() => {
-        await logout();
-        navigate("/login", { replace: true });
-    };
+  // Close on Escape key
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+    }
+  };
 
-    const handleConnectClick = () => {
-        closeModal();
-        navigate("/connect");
-    };
+  const goAndClose = (path) => {
+    setIsOpen(false);
+    navigate(path);
+  };
 
-    const handleTrackedFlightsClick = () => {
-        closeModal();
-        navigate("/tracked-flights");
-    };
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login', { replace: true });
+  };
 
+  return (
+    <div
+      className='profile-container'
+      tabIndex={0}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+    >
+      <button
+        className='profile-icon'
+        aria-haspopup='menu'
+        aria-expanded={isOpen}
+        onClick={handleToggle}
+      >
+        <FontAwesomeIcon icon={faCircleUser} />
+      </button>
 
-    return (
-        <div className="profile-container">
-            <button onClick={handleProfileClick} className="profile-icon">
-                <FontAwesomeIcon icon={faCircleUser} />
-            </button>
-
-            {showProfile && (
-                <div className="profile-modal-overlay" onClick={handleOutsideClick}>
-                    <div className="profile-modal">
-                        <div className="user-info">
-                            <p><strong className="user-name">{user.username}</strong></p>
-                            <p><strong className="user-email">{user.email}</strong></p>
-                        </div>
-
-                        <div className="tracked-flight">
-                            <button onClick={handleTrackedFlightsClick}>Tracked Flights</button>
-                        </div>
-
-                        <div className="connect">
-                            <button onClick={handleConnectClick}>
-                                <FontAwesomeIcon icon={faEnvelope} /> Send Message
-                            </button>
-                        </div>
-
-                        <div className="logout">
-                            <button onClick={handleProfileLogout}>
-                                <FontAwesomeIcon icon={faRightFromBracket} />Log Out
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+      {isOpen && (
+        <div className='profile-dropdown' role='menu'>
+          <div className='profile-header'>
+            <p className='user-name'>{user.username}</p>
+            <p className='user-email'>{user.email}</p>
+          </div>
+          <button role='menuitem' onClick={() => goAndClose('/tracked-flights')}>
+            Tracked Flights
+          </button>
+          <button role='menuitem' onClick={() => goAndClose('/connect')}>
+            <FontAwesomeIcon icon={faEnvelope} /> Send Message
+          </button>
+          <button role='menuitem' onClick={handleLogout}>
+            <FontAwesomeIcon icon={faRightFromBracket} /> Log Out
+          </button>
         </div>
-    );
+      )}
+    </div>
+  );
 }
