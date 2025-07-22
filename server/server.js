@@ -9,7 +9,7 @@ import authRouter from './routes/auth.js';
 import flightRouter from './routes/flights.js';
 import emailRouter from './routes/email.js';
 import userPreferenceRouter from './routes/userPreference.js';
-import hotelRouter from '../routes/recommendationRouter/hotelsRouter.js';
+import hotelRouter from './routes/recommendationRouter/hotelsRouter.js';
 import restaurantRouter from './routes/recommendationRouter/restaurantsRouter.js';
 import thingsToDoRouter from './routes/recommendationRouter/thingsToDoRouter.js';
 
