@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Profile from './Profile.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import "./Header.css";
+import ToolTip from './TooTip.jsx';
+import NavBar from './NavBar.jsx';
 
 export default function Header() {
+    const [showNav, setShowNav] = useState(false);
     const navigate = useNavigate();
 
     const handleEmailClick = () => {
@@ -16,18 +20,28 @@ export default function Header() {
   return (
     <header className='header'>
         <div className='header-logo'>
-            <FontAwesomeIcon icon={faBars} />
+            <FontAwesomeIcon
+                icon={faBars}
+                onClick={() => setShowNav(true)}
+            />
         </div>
-        <span className='web-title'>
+        <h1 className='web-title'>
             Flight Connect
-        </span>
-        <div>
-            <FontAwesomeIcon icon={faEnvelope} onClick={handleEmailClick}/>
-        </div>
+        </h1>
+        <ToolTip
+            text={'Worried about your loved ? \nWe gotcha You!\nClick to Connect'}
+            position='bottom'
+        >
+            <FontAwesomeIcon
+                icon={faEnvelope}
+                onClick={handleEmailClick}
+                className='email-icon'
+            />
+        </ToolTip>
         <div className='profile-logo'>
             <Profile />
         </div>
-
+        <NavBar openNav={showNav} onclose={() => setShowNav(false)}/>
     </header>
   );
 }
