@@ -9,7 +9,9 @@ import authRouter from './routes/auth.js';
 import flightRouter from './routes/flights.js';
 import emailRouter from './routes/email.js';
 import userPreferenceRouter from './routes/userPreference.js';
-import recommendationRouter from './routes/recommendation.js';
+import hotelRouter from '../routes/recommendationRouter/hotelsRouter.js';
+import restaurantRouter from './routes/recommendationRouter/restaurantsRouter.js';
+import thingsToDoRouter from './routes/recommendationRouter/thingsToDoRouter.js';
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ app.use('/auth', authRouter);
 app.use('/api/flights', flightRouter);
 app.use('/email', emailRouter);
 app.use('/preference', userPreferenceRouter);
-app.use('/recommendation', recommendationRouter);
+app.use('/hotels', hotelRouter);
+app.use('/restaurants', restaurantRouter);
+app.use('/things-to-do', thingsToDoRouter);
 
 app.listen(PORT);
