@@ -11,14 +11,11 @@ import HotelPage from './Pages/HotelPage.jsx';
 import RestaurantPage from './Pages/RestaurantPage.jsx';
 import ThingsToDoPage from './Pages/ThingsToDoPage.jsx';
 
-
 export default function App() {
   return (
-
     <Routes>
       <Route path='/auth/login' element={<Login />} />
       <Route path='/auth/register' element={<Register />} />
-
       <Route
         path='/'
         element={
@@ -27,7 +24,6 @@ export default function App() {
           </ProtectedRoute>
           }
       />
-
       <Route
         path='/auth/connect'
         element={
@@ -36,7 +32,6 @@ export default function App() {
           </ProtectedRoute>
           }
       />
-
       <Route
         path='/preference'
         element={
@@ -45,7 +40,6 @@ export default function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path='/auth/recommendations'
         element={
@@ -54,7 +48,6 @@ export default function App() {
           </ProtectedRoute>
           }
       />
-
       <Route
         path='/hotels'
         element={
@@ -63,7 +56,6 @@ export default function App() {
           </ProtectedRoute>
           }
       />
-
       <Route
         path='/restaurants'
         element={
@@ -72,7 +64,6 @@ export default function App() {
           </ProtectedRoute>
           }
       />
-
       <Route
         path='/things-to-do'
         element={
@@ -81,7 +72,6 @@ export default function App() {
           </ProtectedRoute>
           }
       />
-
     </Routes>
   );
 }
