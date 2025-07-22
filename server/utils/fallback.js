@@ -35,7 +35,7 @@ export async function getFallbackItems(city, excludeCategory, neededCount) {
     const allItems = results.flat();
 
     // sort the fallback items by rating first, then by review count
-    allItems.sort(byRatingandReviewCount)
+    allItems.sort(byRatingandReviewCount);
 
     // return the first neededCount items
     return allItems.slice(0, neededCount).map(item => ({

@@ -3,7 +3,6 @@ import 'dotenv/config';
 import sgMail from '@sendgrid/mail';
 import { authenticateToken } from './authMiddleware.js';
 
-
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const router = express.Router();
 
@@ -14,7 +13,7 @@ router.post('/connect', authenticateToken, async (req, res) => {
   const msg = {
     to,
     from: process.env.EMAIL_FROM_ADDRESS,
-    replyTo: userEmail,
+    reply_to: userEmail,
     subject,
     text,
     html,
