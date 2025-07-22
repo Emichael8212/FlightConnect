@@ -1,0 +1,68 @@
+.itinerary-layout {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  box-sizing: border-box;
+  margin-top: 80px;
+  min-height: calc(100vh - 80px);
+  background-color: #f0f4f8;
+  font-family: 'Open Sans', 'Gill Sans MT', 'Gill Sans', Corbel, Arial,
+    sans-serif;
+}
+
+.itinerary-sliders h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #1017a7;
+  border-bottom: 2px solid #2e65a9;
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+.itinerary-sliders .error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 16px;
+  padding: 10px 12px;
+  background-color: #fff5f5;
+  border-left: 4px solid #dc3545;
+  border-radius: 0 6px 6px 0;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.itinerary-results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+itinerary-cards .ititinerary-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.itinerary-cards:empty::after {
+  content: 'No hotels found. Try adjusting your preferences.';
+  display: block;
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  font-size: 1.1rem;
+  margin: 20px 0;
+}
