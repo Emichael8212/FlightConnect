@@ -7,6 +7,10 @@ import UserPreference from './Pages/UserPreference.jsx';
 import ProtectedRoute from './Components/ProtectedRoute.jsx';
 import './App.css';
 import Recommendation from './Components/Recommendation.jsx';
+import HotelPage from './Pages/HotelPage.jsx';
+import RestaurantPage from './Pages/RestaurantPage.jsx';
+import ThingsToDoPage from './Pages/ThingsToDoPage.jsx';
+
 
 export default function App() {
   return (
@@ -50,6 +54,34 @@ export default function App() {
           </ProtectedRoute>
           }
       />
+
+      <Route
+        path='/hotels'
+        element={
+          <ProtectedRoute >
+            <HotelPage/>
+          </ProtectedRoute>
+          }
+      />
+
+      <Route
+        path='/restaurants'
+        element={
+          <ProtectedRoute >
+            <RestaurantPage/>
+          </ProtectedRoute>
+          }
+      />
+
+      <Route
+        path='/things-to-do'
+        element={
+          <ProtectedRoute >
+            <ThingsToDoPage/>
+          </ProtectedRoute>
+          }
+      />
+
     </Routes>
   );
 }
