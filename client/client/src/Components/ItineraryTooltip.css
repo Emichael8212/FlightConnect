@@ -1,0 +1,126 @@
+.itinerary-tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  left: 350%;
+}
+
+.itinerary-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  padding: 8px 16px;
+  border: 2px solid #2e65a9;
+  border-radius: 20px;
+  background-color: #1d4a73;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.itinerary-tooltip-container:hover .itinerary-text {
+  background-color: #2e65a9;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.itinerary-tooltip-content {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  min-width: 250px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border-top: 4px solid #2e65a9;
+}
+
+.itinerary-tooltip-content::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #2e65a9 transparent;
+}
+
+.itinerary-tooltip-container:hover .itinerary-tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+.itinerary-tooltip-content h3 {
+  margin: 0 0 12px;
+  color: #1d4a73;
+  font-size: 1.1rem;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.itinerary-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.itinerary-button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.itinerary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-button {
+  background-color: #2e65a9;
+}
+
+.hotel-button:hover {
+  background-color: #1d4a73;
+}
+
+.restaurant-button {
+  background-color: #e63946;
+}
+
+.restaurant-button:hover {
+  background-color: #c1121f;
+}
+
+.things-button {
+  background-color: #2a9d8f;
+}
+
+.things-button:hover {
+  background-color: #179f8f;
+}
+
+@media (max-width: 768px) {
+  .itinerary-tooltip-content {
+    min-width: 220px;
+  }
+
+  .itinerary-text {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+}
