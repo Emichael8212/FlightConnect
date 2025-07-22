@@ -1,0 +1,30 @@
+.spinner-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.7);
+  z-index: 10;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4p solid #ccc;
+  border-top: 4px solid #007aff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+}
