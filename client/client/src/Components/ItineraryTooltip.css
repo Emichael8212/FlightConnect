@@ -99,19 +99,19 @@
 }
 
 .restaurant-button {
-  background-color: #e63946;
+  background-color: #2e65a9;
 }
 
 .restaurant-button:hover {
-  background-color: #c1121f;
+  background-color: #1d4a73;
 }
 
 .things-button {
-  background-color: #2a9d8f;
+  background-color: #2e65a9;
 }
 
 .things-button:hover {
-  background-color: #179f8f;
+  background-color: #1d4a73;
 }
 
 @media (max-width: 768px) {
