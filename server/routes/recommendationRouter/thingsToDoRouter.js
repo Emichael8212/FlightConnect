@@ -2,6 +2,7 @@ import express from 'express';
 import { authenticateToken } from '../authMiddleware.js';
 import { PrismaClient } from '@prisma/client';
 import { recommendForCategory } from '../../utils/recommendationCategory.js';
+import { mergePreferences } from '../../../shared/mergePreferences.js';
 
 const prisma = new PrismaClient();
 const router = express.Router();
@@ -18,9 +19,11 @@ router.post('/', authenticateToken, async (req, res) => {
     if (!userPreferences) {
       return res.status(404).json({ message: 'User preferences not found' });
     }
+     // merge db preferences with client sent weights
+    const mergedPreferences = mergePreferences(userPreferences, req.body.weights);
 
     // delegate to the shared helper
-    const thingsToDo = await recommendForCategory('thingsToDo', userPreferences);
+    const thingsToDo = await recommendForCategory('thingsToDo', mergedPreferences);
     return res.status(200).json({ thingsToDo });
 
   } catch (err) {
