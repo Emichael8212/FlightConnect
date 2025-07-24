@@ -3,7 +3,7 @@ import axios from 'axios';
 import BASE_URL from '/api';
 
 export default function useListPage(endpoint, weights) {
-    const [items, setItems] = useState([]);
+    const [recommendationItems, setRecommendationItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const debounceRef = useRef(null);
 
@@ -13,7 +13,6 @@ export default function useListPage(endpoint, weights) {
         return () => clearTimeout(debounceRef.current);
     }, [weights]);
 
-    // fetch items from the server and update the state with the result
     async function fetchItems() {
         setLoading(true);
         try {
@@ -21,14 +20,19 @@ export default function useListPage(endpoint, weights) {
                 { weights },
                 { withCredentials: true }
             );
-            const list = data[endpoint];
-            setItems(Array.isArray(list) ? list : []);
+            const camel = toCamel(endpoint);
+            const list = data[camel] || [];
+            setRecommendationItems(Array.isArray(list) ? list : []);
         } catch (err) {
             console.error(`Error fetching ${endpoint}:`, err);
-            setItems([]);
+            setRecommendationItems([]);
         }   finally {
             setLoading(false);
         }
     }
-    return { items, loading };
+    return { recommendationItems, loading };
+}
+
+function toCamel(str) {
+  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
