@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 
 :root {
   --sky-gradient-start: #177dc6;
@@ -15,22 +15,26 @@
   max-width: 500px;
   margin: 3rem auto;
   padding: 2.5rem;
-  background: linear-gradient(to bottom, var(--sky-gradient-start), var(--sky-gradient-end));
+  background: linear-gradient(
+    to bottom,
+    var(--sky-gradient-start),
+    var(--sky-gradient-end)
+  );
   border: 1px solid var(--border-color);
   box-shadow: 0 10px 30px rgba(31, 58, 75, 0.1);
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: var(--text-color);
   position: relative;
   overflow: hidden;
 }
 
 .preference-form::before {
-  content: '\2708'; /* airplane emoji */
+  content: "\2708"; /* airplane emoji */
   position: absolute;
   top: -20px;
   right: -20px;
   font-size: 6rem;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
   transform: rotate(20deg);
 }
 
@@ -90,7 +94,7 @@
 }
 
 .preference-form button::before {
-  content: '\2708';
+  content: "\2708";
   margin-right: 0.5rem;
   font-size: 1.2rem;
 }

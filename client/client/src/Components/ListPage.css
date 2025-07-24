@@ -6,7 +6,7 @@
   margin-top: 80px;
   min-height: calc(100vh - 80px);
   background-color: #f0f4f8;
-  font-family: 'Open Sans', 'Gill Sans MT', 'Gill Sans', Corbel, Arial,
+  font-family: "Open Sans", "Gill Sans MT", "Gill Sans", Corbel, Arial,
     sans-serif;
 }
 
@@ -55,7 +55,7 @@ itinerary-cards .ititinerary-card:hover {
 }
 
 .itinerary-cards:empty::after {
-  content: 'No hotels found. Try adjusting your preferences.';
+  content: "No hotels found. Try adjusting your preferences.";
   display: block;
   text-align: center;
   padding: 40px;

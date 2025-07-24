@@ -27,7 +27,7 @@
 }
 
 .tooltip-box::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;
@@ -61,5 +61,5 @@
   top: -6px;
   bottom: auto;
   border-width: 0 6px 6px;
-  border-color: transparent transparent rgba(0,0,0,0.85);
+  border-color: transparent transparent rgba(0, 0, 0, 0.85);
 }

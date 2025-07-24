@@ -1,38 +1,38 @@
-import ItineraryTooltip from '../Components/ItineraryTooltip.jsx';
-import Header from '../Components/Header.jsx';
-import Spinner from '../Components/Spinner.jsx';
-import DetailCard from './DetailCard.jsx';
-import useListPage from '../Hook/ItineraryHook.js';
-import './ListPage.css';
+import ItineraryTooltip from "../Components/ItineraryTooltip.jsx";
+import Header from "../Components/Header.jsx";
+import Spinner from "../Components/Spinner.jsx";
+import DetailCard from "./DetailCard.jsx";
+import useListPage from "../Hook/ItineraryHook.js";
+import "./ListPage.css";
 
 export default function ListPage({
-    endpoint,
-    label,
-    showPrice,
-    weights,
-    onWeightChange
-    }) {
-    const { items, loading } = useListPage(endpoint, weights);
+  endpoint,
+  label,
+  showPrice,
+  weights,
+  onWeightChange,
+}) {
+  const { items, loading } = useListPage(endpoint, weights);
 
   return (
-    <div className='itinerary-layout'>
-      <aside className='itinerary-sliders'>
+    <div className="itinerary-layout">
+      <aside className="itinerary-sliders">
         <h2>{label} Preferences</h2>
         {Object.entries(weights).map(([key, val]) => (
-          <div key={key} className='slider-container'>
+          <div key={key} className="slider-container">
             <label htmlFor={key}>
               {key
-                .replace(/(hotel|restaurant|thingsToDo)?/i, '')
-                .replace(/([A-Z])/g, ' $1')
+                .replace(/(hotel|restaurant|thingsToDo)?/i, "")
+                .replace(/([A-Z])/g, " $1")
                 .trim()}
             </label>
             <input
-              type='range'
+              type="range"
               id={key}
               name={key}
-              min='0'
-              max='1'
-              step='0.01'
+              min="0"
+              max="1"
+              step="0.01"
               value={val}
               onChange={onWeightChange}
             />
@@ -41,14 +41,14 @@ export default function ListPage({
         ))}
       </aside>
 
-      <main className='itinerary-results'>
+      <main className="itinerary-results">
         <Header />
         <ItineraryTooltip />
 
         {loading ? (
-          <Spinner size={80} overlay={true} text='Loading...' />
+          <Spinner size={80} overlay={true} text="Loading..." />
         ) : (
-          <div className='itinerary-cards'>
+          <div className="itinerary-cards">
             {items.map((item, i) => (
               <DetailCard
                 key={i}
