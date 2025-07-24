@@ -1,28 +1,42 @@
-import ItineraryTooltip from '../Components/ItineraryTooltip.jsx';
+import ToolTip from './TooTip.jsx';
 import Header from '../Components/Header.jsx';
 import Spinner from '../Components/Spinner.jsx';
 import DetailCard from './DetailCard.jsx';
 import useListPage from '../Hook/ItineraryHook.js';
 import './ListPage.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { getImportanceText } from '../utils/utils.js';
 
 export default function ListPage({
-    endpoint,
-    label,
-    showPrice,
-    weights,
-    onWeightChange
-    }) {
-    const { items, loading } = useListPage(endpoint, weights);
+  endpoint,
+  label,
+  showPrice,
+  weights = {},
+  onWeightChange,
+}) {
+  const { recommendationItems, loading } = useListPage(endpoint, weights);
+
+  const message = `Flight Connect recommendation are personalized based on your preferences.
+        Adjust these sliders to prioritize what matters most to you,
+        and we'll customize your ${label.toLowerCase()} recommendations accordingly.`;
 
   return (
     <div className='itinerary-layout'>
       <aside className='itinerary-sliders'>
-        <h2>{label} Preferences</h2>
+        <h2>
+          {label} Preferences
+          <ToolTip text={message} position='bottom'>
+            <span className='info-icon'>
+              <FontAwesomeIcon icon={faInfoCircle} />
+            </span>
+          </ToolTip>
+        </h2>
         {Object.entries(weights).map(([key, val]) => (
           <div key={key} className='slider-container'>
             <label htmlFor={key}>
               {key
-                .replace(/(hotel|restaurant|thingsToDo)?/i, '')
+                .replace(/(hotel|restaurant|thingsToDo)/i, '')
                 .replace(/([A-Z])/g, ' $1')
                 .trim()}
             </label>
@@ -36,22 +50,19 @@ export default function ListPage({
               value={val}
               onChange={onWeightChange}
             />
-            <span>{Math.round(val * 100)}%</span>
+            <span className='itinerary-slider'>{getImportanceText(val)}</span>
           </div>
         ))}
       </aside>
-
       <main className='itinerary-results'>
         <Header />
-        <ItineraryTooltip />
-
         {loading ? (
           <Spinner size={80} overlay={true} text='Loading...' />
         ) : (
           <div className='itinerary-cards'>
-            {items.map((item, i) => (
+            {recommendationItems.map((item, index) => (
               <DetailCard
-                key={i}
+                key={index}
                 label={label}
                 imageUrl={item.imageUrl}
                 name={item.name}
