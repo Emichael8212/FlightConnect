@@ -1,18 +1,13 @@
-import { useState } from 'react';
 import ListPage from '../Components/ListPage';
+import useWeightsHook from '../Hook/WeightsHook';
+import { DEFAULT_HOTEL_WEIGHTS } from '@shared/WeightsConstants';
 
 export default function HotelPage() {
-    const [weights, setWeights] = useState({
-        hotelPriceWeight: 0.4,
-        hotelRatingWeight: 0.3,
-        hotelReviewWeight: 0.3,
+    const [weights, handleWeightChange] = useWeightsHook({
+        hotelPriceWeight: DEFAULT_HOTEL_WEIGHTS.hotelPriceWeight,
+        hotelRatingWeight: DEFAULT_HOTEL_WEIGHTS.hotelRatingWeight,
+        hotelReviewWeight: DEFAULT_HOTEL_WEIGHTS.hotelReviewWeight,
     });
-
-    const handleWeightChange = ({ target: { name, value } }) => {
-        setWeights( prevWeights => ({
-            ...prevWeights, [name]: parseFloat(value)
-        }));
-    };
 
     return (
         <ListPage
