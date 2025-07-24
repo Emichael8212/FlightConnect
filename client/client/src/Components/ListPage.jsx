@@ -33,7 +33,7 @@ export default function ListPage({
           </ToolTip>
         </h2>
         {Object.entries(weights).map(([key, val]) => (
-          <div key={key} className='slider-container'>
+          <div key={key} className="slider-container">
             <label htmlFor={key}>
               {key
                 .replace(/(hotel|restaurant|thingsToDo)/i, '')
@@ -41,12 +41,12 @@ export default function ListPage({
                 .trim()}
             </label>
             <input
-              type='range'
+              type="range"
               id={key}
               name={key}
-              min='0'
-              max='1'
-              step='0.01'
+              min="0"
+              max="1"
+              step="0.01"
               value={val}
               onChange={onWeightChange}
             />
@@ -57,7 +57,7 @@ export default function ListPage({
       <main className='itinerary-results'>
         <Header />
         {loading ? (
-          <Spinner size={80} overlay={true} text='Loading...' />
+          <Spinner size={80} overlay={true} text="Loading..." />
         ) : (
           <div className='itinerary-cards'>
             {recommendationItems.map((item, index) => (
