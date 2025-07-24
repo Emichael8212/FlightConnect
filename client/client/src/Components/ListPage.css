@@ -6,18 +6,19 @@
   margin-top: 80px;
   min-height: calc(100vh - 80px);
   background-color: #f0f4f8;
-  font-family: 'Open Sans', 'Gill Sans MT', 'Gill Sans', Corbel, Arial,
+  font-family: "Open Sans", "Gill Sans MT", "Gill Sans", Corbel, Arial,
     sans-serif;
 }
 
 .itinerary-sliders h2 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
   color: #1017a7;
   border-bottom: 2px solid #2e65a9;
-  padding-bottom: 12px;
-  text-align: center;
+  padding-bottom: 0.5rem;
 }
 
 .itinerary-sliders .error {
@@ -55,7 +56,7 @@ itinerary-cards .ititinerary-card:hover {
 }
 
 .itinerary-cards:empty::after {
-  content: 'No hotels found. Try adjusting your preferences.';
+  content: "No hotels found. Try adjusting your preferences.";
   display: block;
   text-align: center;
   padding: 40px;
@@ -65,4 +66,41 @@ itinerary-cards .ititinerary-card:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   font-size: 1.1rem;
   margin: 20px 0;
+}
+
+.itinerary-sliders {
+  flex: 0 0 220px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.slider-container {
+  margin-bottom: 1.25rem;
+}
+
+.slider-container label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+
+.slider-container input[type="range"] {
+  width: 100%;
+  height: 4px;
+  background: #95b8ee;
+  border-radius: 2px;
+  outline: none;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #2c42e5;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
