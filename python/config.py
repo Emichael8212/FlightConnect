@@ -4,10 +4,10 @@ BASE_URL = "https://www.tripadvisor.com"
 US_HOTELS_URL = f"{BASE_URL}/Hotels-g191-United_States-Hotels.html"
 
 # initialize the maximum number of cards to scrape per page
-MAX_CARDS = 100
+MAX_ITEMS_PER_SLUG = 100
 
 # How many items per “page” TripAdvisor shows
-PAGE_STEP = 30
+ITEMS_PER_PAGE = 30
 
 # Where to dump hotel JSON files
 HOTEL_OUTPUT_DIR = "hotel_json_cleaned"

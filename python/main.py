@@ -10,6 +10,5 @@ def main():
     ThingsToDoScraper().scrape()  # things to do scraper
     RestaurantScraper().scrape()  # restaurant scraper
 
-
 if __name__ == "__main__":
     main()
