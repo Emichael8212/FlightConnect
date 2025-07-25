@@ -8,53 +8,88 @@ import emailValidator from 'email-validator';
 const router = express.Router();
 const prisma = new PrismaClient();
 
+function sendErrorMessage(res, status, message) {
+  return res.status(status).json({ error: message });
+}
 
-router.post('/register', async(req, res) => {
+router.post('/register', async (req, res) => {
+  try {
+    let { username, email, password, confirmPassword } = req.body;
+    username = username?.trim().toLowerCase() || '';
+    email    = email?.toLowerCase()    || '';
+
+    // validation in switch(true)
+    switch (true) {
+      case !username || !email || !password || !confirmPassword:
+        return sendErrorMessage(res, 400, 'Fill all fields');
+      case !emailValidator.validate(email):
+        return sendErrorMessage(res, 400, 'Invalid email address');
+      case password.length < 8:
+        return sendErrorMessage(res, 400, 'Password must be at least 8 characters long');
+      case password !== confirmPassword:
+        return sendErrorMessage(res, 400, 'Passwords do not match');
+      case username === password:
+        return sendErrorMessage(res, 400, 'Username and password cannot be the same');
+      default:
+        break;
+    }
+
+    const existingUser = await prisma.user.findUnique({
+        where: {username}
+    });
+    if (existingUser) {
+        return sendErrorMessage(res, 400, 'Username already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await prisma.user.create({
+        data: {
+            username,
+            email,
+            password: hashedPassword,
+        },
+    });
+    res.status(201).json({message: 'Signup successful!',
+        user: {
+            id: newUser.id,
+            username: newUser.username,
+            email: newUser.email}});
+}   catch   (error) {
+    console.error(error);
+    req.status(500).json({error: 'Something went wrong'});
+}
+});
+
+// Login authentication:
+router.post('/login', async(req, res) => {
+    // get the username and password from the login form
     try {
-        const {username, email, password, confirmPassword } = req.body;
+    let { username, password } = req.body;
+    username = username?.toLowerCase() || '';
 
-        if (!username || !password || !email || !confirmPassword) {
-            return res.status(400).json({error: 'Fill all fields'});
-        }
+    // validation in switch(true)
+    switch (true) {
+      case !username || !password:
+        return sendErrorMessage(res, 400, 'Username and password required');
+      default:
+        break;
+    }
+        // look up user by their username
+        const user = await prisma.user.findUnique({ where: { username } });
+    if (!user) {
+      return sendErrorMessage(res, 400, 'Invalid username or password');
+    }
 
-        // validate email address using email-validator package
-        const isValidEmail = emailValidator.validate(email);
-        if (!isValidEmail) {
-            return res.status(400).json({error: 'Invalid Email'});
-        }
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      return sendErrorMessage(res, 400, 'Invalid username or password');
+    }
 
-        if (password.length < 8) {
-            return res.status(400).json({error: 'Password must be at least 8 characters long.'});
-        }
-
-        if (password !== confirmPassword) {
-            return res.status(400).json({error: 'Passwords do not match'});
-        }
-
-        const existingUser = await prisma.user.findUnique({
-            where: {username}
-        });
-
-        if (existingUser) {
-            return res.status(400).json({error: 'Username already exists.'});
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = await prisma.user.create({
-
-            data: {
-                username,
-                email,
-                password: hashedPassword,
-            },
-        });
         const token = jwt.sign({
-            userId: newUser.id, username: newUser.username},
+            userId: user.id, username: user.username},
             process.env.JWT_SECRET_KEY,
             {expiresIn: process.env.JWT_EXPIRES}
         );
-
         res.cookie('token', token, {
             httpOnly: true,
             sameSite: 'strict',
@@ -62,56 +97,10 @@ router.post('/register', async(req, res) => {
             maxAge: 3*60*60*1000
         });
 
-        res.status(201).json({message: 'Signup successful!',
-            user: {
-                id: newUser.id,
-                username: newUser.username,
-                email: newUser.email}});
-    }   catch   (error) {
-        console.error(error);
-        res.status(500).json({error: 'Something went wrong during signup'});
-    }
-});
-
-// Login authentication:
-router.post('/login', async(req, res) => {
-    // get the username and password from the login form
-    const {username, password} = req.body;
-    try {
-            // check if user provides the username and password
-            if (!username || !password) {
-                res.status(400).json({error: 'Username and Password Required'});
-            }
-            // look up user by their username
-            const user = await prisma.user.findUnique({
-                where: {username}
-            });
-            if (!user) {
-                res.status(400).json({error: 'Invalid Username or Password Required'});
-            }
-            // compared user provided password with one in my database
-            const isValidPassword = await bcrypt.compare(password, user.password);
-
-            if (!isValidPassword) {
-                res.status(400).json({error: 'Incorrect Username or Password'});
-            }
-
-            const token = jwt.sign({
-                userId: user.id, username: user.username},
-                process.env.JWT_SECRET_KEY,
-                {expiresIn: process.env.JWT_EXPIRES}
-            );
-
-            res.cookie('token', token, {
-                httpOnly: true,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV === 'production',
-                maxAge: 3*60*60*1000
-            });
-
-            return res.status(200).json({message: 'Login Successful'});
+            return res.status(200).json({error: 'Login Successful'});
     }   catch (error) {
         console.error(error);
+        return sendErrorMessage(res, 500, 'Something went wrong');
     }
 });
 
