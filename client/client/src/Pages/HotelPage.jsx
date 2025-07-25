@@ -1,21 +1,21 @@
-import ListPage from '../Components/ListPage';
-import useWeightsHook from '../Hook/WeightsHook';
-import { DEFAULT_HOTEL_WEIGHTS } from '@shared/WeightsConstants';
+// HotelPage.jsx
+import { useNavigate } from "react-router-dom";
+import ListPage from "../Components/ListPage";
+import usePreferences from "../Hook/UserPreferenceHook.js";
 
 export default function HotelPage() {
-    const [weights, handleWeightChange] = useWeightsHook({
-        hotelPriceWeight: DEFAULT_HOTEL_WEIGHTS.hotelPriceWeight,
-        hotelRatingWeight: DEFAULT_HOTEL_WEIGHTS.hotelRatingWeight,
-        hotelReviewWeight: DEFAULT_HOTEL_WEIGHTS.hotelReviewWeight,
-    });
+  const navigate = useNavigate();
+  const { weightGroupsMapping } = usePreferences(navigate);
+  const { weights, changeHandler: onWeightChange } =
+    weightGroupsMapping["Hotel Weights"];
 
-    return (
-        <ListPage
-            endpoint='hotels'
-            label='Hotel'
-            showPrice={true}
-            weights={weights}
-            onWeightChange={handleWeightChange}
-        />
-    );
+  return (
+    <ListPage
+      endpoint="hotels"
+      label="Hotels"
+      showPrice={true}
+      weights={weights}
+      onWeightChange={onWeightChange}
+    />
+  );
 }
