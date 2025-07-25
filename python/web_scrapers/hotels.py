@@ -17,54 +17,51 @@ class HotelScraper(BaseScraper):
             output_dir="hotel_json_cleaned",  # where to write my output
         )
 
-    def parse_page(self, soup):
+    def parse_page(self, soup_parser):
         # extract name of hotel
-        names = [
-            h.get_text(strip=True)
-            for h in soup.find_all(
+        hotel_names = [
+            header_element.get_text(strip=True)
+            for header_element in soup_parser.find_all(
                 "h3", class_="biGQs _P fiohW alXOW EEXWj GzNcM BYtua UTQMg alvrA OgHoE"
             )
         ]
         # extract rating of hotel
-        ratings = [
-            span.find("span").get_text(strip=True)
-            for span in soup.find_all("div", {"data-automation": "bubbleRatingValue"})
+        hotel_ratings = [
+            bubble_span.find("span").get_text(strip=True)
+            for bubble_span in soup_parser.find_all("div", {"data-automation": "bubbleRatingValue"})
         ]
         # extract image url of hotel
-        images = [
-            img["src"]
-            for div in soup.find_all("div", class_="OCjqp w _Z")
-            for img in div.find_all("img", src=True)
+        hotel_images = [
+            image_element["src"]
+            for container_div in soup_parser.find_all("div", class_="OCjqp w _Z")
+            for image_element in container_div.find_all("img", src=True)
         ]
         # extract review counts of the hotel
-        reviews = [
-            span.find("span").get_text(strip=True)
-            for span in soup.find_all("div", {"data-automation": "bubbleReviewCount"})
+        hotel_reviews = [
+            review_span.find("span").get_text(strip=True)
+            for review_span in soup_parser.find_all("div", {"data-automation": "bubbleReviewCount"})
         ]
-        # 5 extract descriptions of the hotel
-        descriptions = [
-            a.find("span").get_text(strip=True)
-            for a in soup.find_all("a", class_="BMQDV _F Gv wSSLS SwZTJ")
-            if a.find("span")
+        # extract descriptions of the hotel
+        hotel_descriptions = [
+            span_element.get_text(strip=True)
+            for link_element in soup_parser.find_all("a", class_="BMQDV _F Gv wSSLS SwZTJ")
+            if (span_element := link_element.find("span"))
         ]
-        # extract price of hotel
-        prices = [div.get_text(strip=True) for div in soup.select("div.TMaKm.u")]
+        # extract prices of the hotel
+        hotel_prices = [price_div.get_text(strip=True) for price_div in soup_parser.select("div.TMaKm.u")]
 
-        # create a list of dictionaries with the extracted data
-        rows = []
-        # loop through each hotel and extract the data for that hotel
-        for name, rating, img, reviews, descriptions, price in zip(
-            names, ratings, images, reviews, descriptions, prices
+        data_rows = []
+        for hotel_name, hotel_rating, hotel_image, hotel_review, hotel_description, hotel_price in zip(
+            hotel_names, hotel_ratings, hotel_images, hotel_reviews, hotel_descriptions, hotel_prices
         ):
-            # create a dictionary with the extracted data and add the dictionary to the list of dictionaries
-            rows.append(
+            data_rows.append(
                 {
-                    "name": clean_name(name),
-                    "rating": clean_rating(rating),
-                    "image_url": img,
-                    "review_count": clean_review_count(reviews),
-                    "description": clean_description(descriptions),
-                    "price": clean_price(price),
+                    "name": clean_name(hotel_name),
+                    "rating": clean_rating(hotel_rating),
+                    "image_url": hotel_image,
+                    "review_count": clean_review_count(hotel_review),
+                    "description": clean_description(hotel_description),
+                    "price": clean_price(hotel_price),
                 }
             )
-        return rows
+        return data_rows
