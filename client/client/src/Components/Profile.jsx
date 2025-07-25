@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faWrench } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { useAuthenticationContext } from '../Context/AuthenticationContext';
 import './Profile.css';
@@ -63,8 +63,8 @@ export default function Profile() {
           <button role='menuitem' onClick={() => goAndClose('/tracked-flights')}>
             Tracked Flights
           </button>
-          <button role='menuitem' onClick={() => goAndClose('/connect')}>
-            <FontAwesomeIcon icon={faEnvelope} /> Send Message
+          <button role='menuitem' onClick={() => goAndClose('/preference')}>
+            <FontAwesomeIcon icon={faWrench} /> Settings
           </button>
           <button role='menuitem' onClick={handleLogout}>
             <FontAwesomeIcon icon={faRightFromBracket} /> Log Out
