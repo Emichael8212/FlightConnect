@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from '../Components/Header';
 import './Connect.css';
 axios.defaults.withCredentials = true;
+import { toast } from 'react-toastify';
 
 const STATUS = {
     IDLE: null,
@@ -47,7 +48,7 @@ export default function Connect() {
             setTo('');
             setSubject('');
             setBody('');
-            alert('Email sent successfully!');
+            toast.success('Email sent successfully!');
         } catch (error) {
             setStatus(STATUS.ERROR);
         };

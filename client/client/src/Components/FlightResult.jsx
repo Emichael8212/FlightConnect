@@ -3,6 +3,7 @@ import './FlightResult.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane, faBookmark as faSave, faTrash as faRemove } from '@fortawesome/free-solid-svg-icons';
 import { saveTrackedFlight, deleteTrackedFlight } from '../../api';
+import { toast } from 'react-toastify';
 
 export default function FlightResult({flight, isTracked, onTrackChange, trackedId }) {
     const [saving, setSaving] = useState(false);
@@ -18,12 +19,14 @@ export default function FlightResult({flight, isTracked, onTrackChange, trackedI
                 arrival: flight.arrival.iata,
                 flightDate: flight.flight_date,
                 });
+                toast.success(`Flight ${flight.flight.iata} saved`);
             } else {
                 await deleteTrackedFlight(trackedId);
+                toast.success(`Flight ${flight.flight.iata} removed`);
             }
             onTrackChange();
         }   catch (error) {
-            alert('Error updating track status');
+            toast.error('Could not save flight');
         }   finally {
             setSaving(false);
         }
@@ -49,7 +52,7 @@ export default function FlightResult({flight, isTracked, onTrackChange, trackedI
                     <span>{flight.arrival.iata}</span>
                 </div>
                 <div className='flight-status'>
-                    {flight.flight_status} On Time
+                    {flight.flight_status? flight.flight_status : 'Unknown'}
                 </div>
             </div>
 
