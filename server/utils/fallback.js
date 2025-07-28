@@ -19,27 +19,28 @@ function byRatingandReviewCount(a, b) {
 }
 // fallback function
 // if the user's query is not in the database, return a list of items from the same city as the user's query
-export async function getFallbackItems(city, category, neededCount) {
-  // Only fall back to the same type of item you were originally looking for
-  const categoriesToFetch = [category];
+export async function getFallbackItems(city, excludeCategory, neededCount) {
+    const categoriesToFetch = ['hotel', 'restaurant', 'thingsToDo'].filter(category => category !== excludeCategory);
+    // fetch items from each category
+        // if the category is hotel, fetch hotels from the same city, as well as restaurants and things to do from the same city
+    const results = await Promise.all(
+        categoriesToFetch.map(category =>
+            modelLookup[category].findMany({
+                where: { city: {equals: city, mode: 'insensitive' } },
+                take: 50,
+            })
+        )
+    );
+    // Flatten the array of arrays
+    const allItems = results.flat();
 
-  const results = await Promise.all(
-    categoriesToFetch.map(cat =>
-      modelLookup[cat].findMany({
-        where: { city: { equals: city, mode: 'insensitive' } },
-        take: 50,
-      })
-    )
-  );
+    // sort the fallback items by rating first, then by review count
+    allItems.sort(byRatingandReviewCount);
 
-  const allItems = results.flat();
-  allItems.sort(byRatingandReviewCount);
-
-  return allItems
-    .slice(0, neededCount)
-    .map(item => ({
-      ...item,
-      isFallback: true,
-      originalCategory: category,
+    // return the first neededCount items
+    return allItems.slice(0, neededCount).map(item => ({
+        ...item,
+        isFallback: true,
+        originalCategory: excludeCategory,
     }));
 }

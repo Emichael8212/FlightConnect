@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './prisma.js';
 import { normalizeCity } from './normalize.js';
 import { calculateOverallScore, budgetTierToPriceRange } from './recommendationHelpers.js';
 import { getFallbackItems } from './fallback.js';
 
-const prisma = new PrismaClient();
 const MAX_FETCH = 100;
 const MAX_RECOMMEND = 10;
 
