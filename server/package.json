@@ -5,11 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "import:hotels": "node importHotels.js",
-    "import:things_to_do": "node importThingsToDo.js",
+    "import-data": "node scripts/importScript.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "import:restaurant": "node importRestaurant.js",
     "start": "nodemon server.js",
     "dev": "node server.js"
   },
@@ -22,6 +20,7 @@
     "@sendgrid/mail": "^8.1.5",
     "axois": "^0.0.1-security",
     "bcrypt": "^6.0.0",
+    "bootstrap": "^5.3.7",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
@@ -29,6 +28,7 @@
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
+    "react-bootstrap": "^2.10.10",
     "react-loader-spinner": "^6.1.6"
   },
   "devDependencies": {
