@@ -1,0 +1,260 @@
+.tracked-layout {
+  background-color: #f8fafc;
+  padding: 85px 30px;
+  min-height: calc(100vh - 60px);
+}
+
+.tracked-flights-header {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #0a3c9e;
+  position: relative;
+}
+
+.tracked-flights-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #0a3c9e, #4285f4);
+  border-radius: 3px;
+}
+
+.tracked-flights {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.flight-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.flight-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.flight-card-header {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  border-bottom: 1px solid #f0f4f8;
+  background-color: #fafbfc;
+}
+
+.flight-card-logo {
+  width: 80px;
+  height: 45px;
+  object-fit: contain;
+  margin-right: 1rem;
+  padding: 4px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.flight-card-airline {
+  font-size: 1.35rem;
+  color: #1a202c;
+  margin: 0;
+  font-weight: 600;
+}
+
+.flight-card-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.flight-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.flight-route::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 2px;
+  background: linear-gradient(90deg, #e2e8f0 0%, #4285f4 50%, #e2e8f0 100%);
+  z-index: 0;
+}
+
+.flight-route::after {
+  content: '✈️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  font-size: 1.25rem;
+  background-color: white;
+  padding: 0 8px;
+  z-index: 1;
+}
+
+.flight-route-airport {
+  font-size: 1.25rem;
+  color: #2d3748;
+  font-weight: 700;
+  background-color: white;
+  padding: 0 8px;
+  z-index: 1;
+  position: relative;
+}
+
+.flight-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.flight-detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-detail-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.flight-detail-value {
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.flight-card-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fafbfc;
+}
+
+.saved-date {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+.unsave-button {
+  background: none;
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+
+.unsave-button:hover {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.loading-container,
+.error-container,
+.tracked-flights-empty {
+  padding: 3rem;
+  text-align: center;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.tracked-flights-empty {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+}
+
+.tracked-flights-empty h3 {
+  font-size: 1.5rem;
+  color: #334155;
+  margin-bottom: 1rem;
+}
+
+.tracked-flights-empty p {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #4285f4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 1.25rem;
+  border-radius: 8px;
+  display: inline-block;
+  border-left: 4px solid #ef4444;
+  max-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .tracked-layout {
+    padding: 85px 15px;
+  }
+
+  .tracked-flights {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-route::before {
+    width: 60%;
+  }
+}

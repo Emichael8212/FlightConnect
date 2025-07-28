@@ -12,6 +12,7 @@ import userPreferenceRouter from './routes/userPreference.js';
 import hotelRouter from './routes/recommendationRouter/hotelsRouter.js';
 import restaurantRouter from './routes/recommendationRouter/restaurantsRouter.js';
 import thingsToDoRouter from './routes/recommendationRouter/thingsToDoRouter.js';
+import trackedFlightsRouter from './routes/trackedFlights.js';
 
 dotenv.config();
 
@@ -34,5 +35,7 @@ app.use('/preference', userPreferenceRouter);
 app.use('/hotels', hotelRouter);
 app.use('/restaurants', restaurantRouter);
 app.use('/things-to-do', thingsToDoRouter);
+app.use('/tracked-flights', trackedFlightsRouter);
+
 
 app.listen(PORT);

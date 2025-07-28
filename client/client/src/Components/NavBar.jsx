@@ -13,6 +13,7 @@ export default function NavBar({ openNav, onclose}) {
                 <ul>
                     <li><Link to='/'>Home</Link></li>
                     <li><Link to='/auth/connect'>Connect</Link></li>
+                    <li><Link to='/tracked-flights'>Saved Tracks</Link></li>
                     <li><Link to='/hotels'>Hotels</Link></li>
                     <li><Link to='/restaurants'>Restaurants</Link></li>
                     <li><Link to='/things-to-do'>Attractions</Link></li>

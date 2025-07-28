@@ -20,24 +20,42 @@ model User {
   preferences   UserPreference?
   password      String
   messages      Message[]
+  trackedFlights TrackedFlight[]
 }
 
 model UserPreference {
-  id               Int     @id   @default(autoincrement())
-  userId           Int    @unique
-  user             User    @relation(fields: [userId], references: [id])
-  budgetTier       Int
-  cuisine          String?
-  activityCategory String?
-  defaultCity      String?
+  id                          Int         @id   @default(autoincrement())
+  userId                      Int         @unique
+  user                        User        @relation(fields: [userId], references: [id])
+  budgetTier                  Int
+  cuisine                     String?
+  activityCategory            String?
+  defaultCity                 String?
+  cityWeight                  Float?     @default(0.4)
+  budgetWeight                Float?     @default(0.3)
+  cuisineWeight               Float?     @default(0.15)
+  activityWeight              Float?     @default(0.15)
+  hotelPriceWeight            Float?     @default(0.4)
+  hotelRatingWeight           Float?     @default(0.3)
+  hotelReviewWeight           Float?     @default(0.3)
+  restaurantRatingWeight      Float?     @default(0.5)
+  restaurantReviewWeight      Float?     @default(0.5)
+  thingsToDoRatingWeight      Float?     @default(0.5)
+  thingsToDoReviewWeight      Float?     @default(0.5)
 }
 
-model Flight {
-  id          Int     @id    @default(autoincrement())
-  airline     String
-  depature    String
-  arrival     String
-  messages    Message[]
+model TrackedFlight {
+  id            Int     @id    @default(autoincrement())
+  user          User    @relation(fields: [userId], references: [id])
+  userId        Int
+  airline       String
+  flightNumber  String?
+  departure     String
+  arrival       String
+  flightDate    DateTime?
+  trackedAt     DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Message {
@@ -45,8 +63,6 @@ model Message {
   content     String
   user        User    @relation(fields: [userId], references: [id] )
   userId      Int
-  flight      Flight  @relation(fields: [flightId], references: [id])
-  flightId    Int
 }
 
 model Hotel {
