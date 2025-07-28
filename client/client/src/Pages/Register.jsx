@@ -9,7 +9,7 @@ import Spinner from '../Components/Spinner';
 
 export default function Register() {
     // set an initial state for the form to register
-    const [setRegisterData, isSetRegisterData] = useState(
+    const [registerData, setRegisterData] = useState(
         {
             username: '',
             password: '',
@@ -26,7 +26,7 @@ export default function Register() {
     // Initiate a function that changes the state of the form info to that which the user filled out
     const handleChange = (event) => {
         const {name, value} = event.target;
-        isSetRegisterData(prev => ({...prev, [name]: value}));
+        setRegisterData(prev => ({...prev, [name]: value}));
     };
 
     const handleShowPassword = () => {
@@ -37,13 +37,13 @@ export default function Register() {
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
-        const response = await registerUser(setRegisterData);
+        const response = await registerUser(registerData);
         if (response.wasSuccessful) {
             await login({
-                username: setRegisterData.username,
-                password: setRegisterData.password
+                username: registerData.username,
+                password: registerData.password
             });
-            navigate('/preference');
+            navigate('/auth/login');
         } else {
             setRegisterMessage(response.error);
             setLoading(false);
@@ -62,9 +62,8 @@ export default function Register() {
                             id = 'username'
                             name='username'
                             type='text'
-                            value={setRegisterData.username}
+                            value={registerData.username}
                             placeholder='Username' onChange={handleChange}
-                            required
                         />
                         <FontAwesomeIcon
                             icon={faUser}
@@ -77,10 +76,9 @@ export default function Register() {
                             id = 'email'
                             name='email'
                             type='email'
-                            value={setRegisterData.email}
+                            value={registerData.email}
                             placeholder='Email'
                             onChange={handleChange}
-                            required
                         />
                         <FontAwesomeIcon
                             icon={faEnvelope}
@@ -92,11 +90,10 @@ export default function Register() {
                         <input
                             id = 'password'
                             name='password'
-                            type='password'
-                            value={setRegisterData.password}
+                            type={showPassword ? 'text' : 'password'}
+                            value={registerData.password}
                             onChange={handleChange}
                             placeholder='Password'
-                            required
                         />
                         <FontAwesomeIcon
                             icon={showPassword ? faUnlock :faLock}
@@ -109,11 +106,10 @@ export default function Register() {
                         <input
                             id = 'confirmPassword'
                             name='confirmPassword'
-                            type='password'
-                            value={setRegisterData.confirmPassword}
+                            type={showPassword ? 'text' : 'password'}
+                            value={registerData.confirmPassword}
                             onChange={handleChange}
                             placeholder='Confirm Password'
-                            required
                         />
                         <FontAwesomeIcon
                             icon={showPassword ? faUnlock :faLock}
